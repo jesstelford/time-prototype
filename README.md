@@ -1,6 +1,6 @@
 Time based game prototype
 ---
 
-Using the [https://love2d.org](LÖVE game engine) and the [https://github.com/vrld/hump](HUMP tools)
+Using the [LÖVE game engine](https://love2d.org) and the [HUMP tools](https://github.com/vrld/hump)
 
 Source code is released under the FreeBSD Licence. See LICENSE.md

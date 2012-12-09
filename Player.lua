@@ -1,5 +1,3 @@
-Class = require "hump.class"
-
 -- Player class
 Player = Class {
     function(self, image)

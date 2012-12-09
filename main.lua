@@ -1,4 +1,5 @@
-dofile("player.lua")
+Class = require "hump.class"
+dofile("Player.lua")
 
 -- Called once before anything
 function love.load()

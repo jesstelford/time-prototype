@@ -10,13 +10,13 @@ Level_1 = Class {
         Level_Abstract.construct(self, 10, 10)
 
         for x = 1, 10 do
-            self:setMapValue(x, 1, Level_Abstract.BLOCKED)
-            self:setMapValue(x, 10, Level_Abstract.BLOCKED)
+            self:setMapValue(x, 1, Level_Abstract.TERRAIN_BLOCKED)
+            self:setMapValue(x, 10, Level_Abstract.TERRAIN_BLOCKED)
         end
 
         for y = 2, 9 do
-            self:setMapValue(1, y, Level_Abstract.BLOCKED)
-            self:setMapValue(10, y, Level_Abstract.BLOCKED)
+            self:setMapValue(1, y, Level_Abstract.TERRAIN_BLOCKED)
+            self:setMapValue(10, y, Level_Abstract.TERRAIN_BLOCKED)
         end
     end
 }

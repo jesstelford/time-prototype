@@ -12,7 +12,7 @@ Level_Abstract = Class {
         for y = 1, height do
             self.map[y] = {}
             for x = 1, width do
-                self.map[y][x] = Level_Abstract.PASSABLE
+                self.map[y][x] = Level_Abstract.TERRAIN_PASSABLE
             end
         end
 
@@ -22,11 +22,12 @@ Level_Abstract = Class {
 -- default class variables
 -- Following must be copied to dervative class (due to tables being copied by
 -- reference, rather than value to sub classes):
+--
 -- Level_Abstract.map = {}
 
 -- psuedo class constants
-Level_Abstract.PASSABLE = 1
-Level_Abstract.BLOCKED = 2
+Level_Abstract.TERRAIN_PASSABLE = 1
+Level_Abstract.TERRAIN_BLOCKED = 2
 
 -- public member functions
 --- Check if the given coordinate is within the boundaries of the level's map
@@ -66,7 +67,7 @@ function Level_Abstract:isMapPassable(x, y)
         error()
     end
 
-    if self.map[y][x] == Level_Abstract.PASSABLE then
+    if self.map[y][x] == Level_Abstract.TERRAIN_PASSABLE then
         return true
     else
         return false

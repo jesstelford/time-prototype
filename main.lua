@@ -5,6 +5,9 @@ require "Player"
 require "State.Load"
 require "State.Game"
 
+require "Level.Abstract"
+require "Level.1"
+
 -- Called once before anything
 function love.load()
     Gamestate.switch(State_Load)

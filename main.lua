@@ -2,13 +2,12 @@ Class = require "hump.class"
 Gamestate = require "hump.gamestate"
 
 require "Player"
+require "State.Load"
 require "State.Game"
 
 -- Called once before anything
 function love.load()
-    hamsterImage = love.graphics.newImage("hamster.png")
-    player = Player(hamsterImage)
-    Gamestate.switch(State_Game)
+    Gamestate.switch(State_Load)
 end
 
 -- Called once per game loop

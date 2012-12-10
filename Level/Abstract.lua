@@ -16,6 +16,15 @@ Level_Abstract = Class {
             end
         end
 
+        -- Reset the tiles to all nil
+        self.tiles = {}
+        for y = 1, height do
+            self.tiles[y] = {}
+            for x = 1, width do
+                self.tiles[y][x] = Level_Abstract.TILE_NONE
+            end
+        end
+
     end
 }
 
@@ -24,10 +33,13 @@ Level_Abstract = Class {
 -- reference, rather than value to sub classes):
 --
 -- Level_Abstract.map = {}
+-- Level_Abstract.tiles = {}
 
 -- psuedo class constants
 Level_Abstract.TERRAIN_PASSABLE = 1
 Level_Abstract.TERRAIN_BLOCKED = 2
+
+Level_Abstract.TILE_NONE = nil
 
 -- public member functions
 --- Check if the given coordinate is within the boundaries of the level's map

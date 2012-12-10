@@ -1,8 +1,8 @@
 Class = require "hump.class"
 Gamestate = require "hump.gamestate"
 
-dofile("Player.lua")
-dofile("State/Game.lua")
+require "Player"
+require "State.Game"
 
 -- Called once before anything
 function love.load()

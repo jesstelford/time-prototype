@@ -24,3 +24,4 @@ Level_1 = Class {
 -- Required variable from Abstract class
 Level_1.map = {}
 Level_1.tiles = {}
+Level_1.tileImages = {}

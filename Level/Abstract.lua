@@ -35,6 +35,7 @@ Level_Abstract = Class {
 --
 -- Level_Abstract.map = {}
 -- Level_Abstract.tiles = {}
+-- Level_Abstract.tileImages = {}
 
 -- psuedo class constants
 Level_Abstract.TERRAIN_PASSABLE = 1
@@ -97,4 +98,23 @@ function Level_Abstract:isMapPassable(x, y)
     end
 end
 
+--- Set a value to the Level's map at the given coordinates
+-- @param x (int)
+-- @param y (int)
+-- @param value (int)
+function Level_Abstract:setTileValue(x, y, value)
 
+    if not self:inBounds(x, y) then
+        error()
+    end
+
+    self.tiles[y][x] = value
+end
+
+function Level_Abstract:setTileTypeImage(value, image)
+    tileImages.value = image
+end
+
+function Level_Abstract:draw()
+
+end

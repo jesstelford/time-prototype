@@ -3,24 +3,25 @@ Level_Abstract = Class {
 
     --- Constructor
     -- @param self A reference to the object being constructed
-    function(self, width, height)
-        self.width = width
-        self.height = height
+    function(self, mapWidth, mapHeight)
+
+        self.mapWidth = mapWidth
+        self.mapHeight = mapHeight
 
         -- Reset the map to all 'Passable'
         self.map = {}
-        for y = 1, height do
+        for y = 1, mapHeight do
             self.map[y] = {}
-            for x = 1, width do
+            for x = 1, mapWidth do
                 self.map[y][x] = Level_Abstract.TERRAIN_PASSABLE
             end
         end
 
         -- Reset the tiles to all nil
         self.tiles = {}
-        for y = 1, height do
+        for y = 1, mapHeight do
             self.tiles[y] = {}
-            for x = 1, width do
+            for x = 1, mapWidth do
                 self.tiles[y][x] = Level_Abstract.TILE_NONE
             end
         end
@@ -47,15 +48,25 @@ Level_Abstract.TILE_NONE = nil
 -- @param y (int)
 function Level_Abstract:inBounds(x, y)
 
-    if x < 1 or x > self.width then
+    if x < 1 or x > self.mapWidth then
         return false
     end
 
-    if y < 1 or y > self.height then
+    if y < 1 or y > self.mapHeight then
         return false
     end
 
     return true
+end
+
+--- @return level map's mapWidth
+function Level_Abstract:getMapWidth()
+    return self.mapWidth
+end
+
+--- @return level map's mapHeight
+function Level_Abstract:getMapHeight()
+    return self.mapHeight
 end
 
 --- Set a value to the Level's map at the given coordinates
@@ -86,12 +97,4 @@ function Level_Abstract:isMapPassable(x, y)
     end
 end
 
---- @return level map's width
-function Level_Abstract:getWidth()
-    return self.width
-end
 
---- @return level map's height
-function Level_Abstract:getHeight()
-    return self.height
-end

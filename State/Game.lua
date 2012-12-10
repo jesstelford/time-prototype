@@ -31,7 +31,7 @@ function State_Game:draw()
     player:draw()
 
     local string = ""
-    for y = 1, levelOne:getHeight() do
+    for y = 1, levelOne:getMapHeight() do
         string = string .. table.concat(levelOne.map[y], ',') .. "\n"
     end
 

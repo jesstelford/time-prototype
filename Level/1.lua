@@ -7,7 +7,7 @@ Level_1 = Class {
     -- @param self A reference to the object being constructed
     -- @param image (Image) The image to render
     function(self)
-        Level_Abstract.construct(self, 10, 10)
+        Level_Abstract.construct(self, 10, 10, 10, 10)
 
         for x = 1, 10 do
             self:setMapValue(x, 1, Level_Abstract.TERRAIN_BLOCKED)

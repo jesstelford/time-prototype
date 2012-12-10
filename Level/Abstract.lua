@@ -3,10 +3,13 @@ Level_Abstract = Class {
 
     --- Constructor
     -- @param self A reference to the object being constructed
-    function(self, mapWidth, mapHeight)
+    function(self, mapWidth, mapHeight, tileWidth, tileHeight)
 
         self.mapWidth = mapWidth
         self.mapHeight = mapHeight
+
+        self.tileWidth = tileWidth
+        self.tileHeight = tileHeight
 
         -- Reset the map to all 'Passable'
         self.map = {}
@@ -116,5 +119,14 @@ function Level_Abstract:setTileTypeImage(value, image)
 end
 
 function Level_Abstract:draw()
-
+    for y = 1, self.mapHeight do
+        for x = 1, self.mapWidth do
+            -- only if an image has been set for this tile type
+            if self.tileImages[self.tiles[y][x]] != nil then
+                local drawX = (x - 1) * self.tileWidth
+                local drawY = (y - 1) * self.tileHeight
+                -- draw self.tileImages[self.tiles[y][x]]
+            end
+        end
+    end
 end

@@ -28,7 +28,10 @@ function State_Game:update(dt)
 end
 
 function State_Game:draw()
+
     player:draw()
+
+    levelOne:draw()
 
     local string = ""
     for y = 1, levelOne:getMapHeight() do

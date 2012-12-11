@@ -8,14 +8,11 @@ Level_1 = Class {
     -- @param image (Image) The image to render
     function(self)
 
-        Level_Abstract.construct(self, 10, 10, 20, 20)
-
-        self:setTileTypeImage(1, love.graphics.newImage('wall.png'))
-
         -- Note that these values equate to: 
-        -- Level_Abstract.TERRAIN_PASSABLE = 0
-        -- Level_Abstract.TERRAIN_BLOCKED = 1
-        self:setMap(
+        -- Level_Abstract.TERRAIN_PASSABLE
+        -- Level_Abstract.TERRAIN_BLOCKED
+        Level_Abstract.construct(
+            self,
             {
                 {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
                 {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
@@ -44,13 +41,7 @@ Level_1 = Class {
                 {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
                 {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
             },
-            26,
-            26 
-        )
-
-        -- Note that these values equate to the tiles set above
-        self:setTiles(
-            {
+            {   -- Note that these values equate to the tiles types set below
                 {1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,1},
                 {1,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,1},
                 {1,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,1},
@@ -81,6 +72,8 @@ Level_1 = Class {
             20,
             20
         )
+
+        self:setTileTypeImage(1, love.graphics.newImage('wall.png'))
 
     end
 }

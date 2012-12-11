@@ -21,6 +21,8 @@ Level_Abstract = Class {
 -- Level_Abstract.map = {}
 -- Level_Abstract.tiles = {}
 -- Level_Abstract.tileImages = {}
+-- Level_Abstract.enemies = {}
+-- Level_Abstract.obstacles = {}
 
 -- psuedo class constants
 Level_Abstract.TERRAIN_PASSABLE = 0
@@ -140,4 +142,20 @@ function Level_Abstract:draw()
             end
         end
     end
+end
+
+function Level_Abstract:addEnemy(enemy)
+    -- TODO: Append to the end of self.enemies
+end
+
+function Level_Abstract:getEnemies()
+    return self.enemies
+end
+
+function Level_Abstract:addObstacle(obstacle)
+    -- TODO: Append to the end of self.obstacles
+end
+
+function Level_Abstract:getObstacles()
+    return self.obstacles
 end

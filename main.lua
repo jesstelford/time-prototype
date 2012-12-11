@@ -1,6 +1,8 @@
 Class = require "hump.class"
 Gamestate = require "hump.gamestate"
 
+require "std"
+
 require "Player"
 require "State.Load"
 require "State.Game"

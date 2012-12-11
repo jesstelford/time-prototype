@@ -41,8 +41,8 @@ Level_Abstract = Class {
 -- Level_Abstract.tileImages = {}
 
 -- psuedo class constants
-Level_Abstract.TERRAIN_PASSABLE = 1
-Level_Abstract.TERRAIN_BLOCKED = 2
+Level_Abstract.TERRAIN_PASSABLE = 0
+Level_Abstract.TERRAIN_BLOCKED = 1
 
 Level_Abstract.TILE_NONE = nil
 

@@ -80,6 +80,13 @@ function Level_Abstract:setMap(map, mapWidth, mapHeight)
     self.mapHeight = mapHeight
 end
 
+--- Set the entire map along with width and height
+function Level_Abstract:setTiles(tiles, tileWidth, tileHeight)
+    self.tiles = tree.clone(tiles)
+    self.tileWidth = tileWidth
+    self.tileHeight = tileHeight
+end
+
 --- Set a value to the Level's map at the given coordinates
 -- @param x (int)
 -- @param y (int)

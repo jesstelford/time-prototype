@@ -73,6 +73,13 @@ function Level_Abstract:getMapHeight()
     return self.mapHeight
 end
 
+--- Set the entire map along with width and height
+function Level_Abstract:setMap(map, mapWidth, mapHeight)
+    self.map = tree.clone(map)
+    self.mapWidth = mapWidth
+    self.mapHeight = mapHeight
+end
+
 --- Set a value to the Level's map at the given coordinates
 -- @param x (int)
 -- @param y (int)

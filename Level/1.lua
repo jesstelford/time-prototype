@@ -12,21 +12,36 @@ Level_1 = Class {
 
         self:setTileTypeImage('wall', love.graphics.newImage('wall.png'))
 
-        for x = 1, 10 do
-            self:setMapValue(x, 1, Level_Abstract.TERRAIN_BLOCKED)
-            self:setMapValue(x, 10, Level_Abstract.TERRAIN_BLOCKED)
+        self:setMap(
+            {
+                {1,1,1,1,1,1,1,1},
+                {1,0,0,0,0,0,0,1},
+                {1,0,0,0,0,0,0,1},
+                {1,0,0,0,0,0,0,1},
+                {1,0,0,0,0,0,0,1},
+                {1,0,0,0,0,0,0,1},
+                {1,0,0,0,0,0,0,1},
+                {1,1,1,1,1,1,1,1}
+            },
+            8,
+            8
+        )
 
-            self:setTileValue(x, 1, 'wall')
-            self:setTileValue(x, 10, 'wall')
-        end
+        -- for x = 1, 10 do
+        --     self:setMapValue(x, 1, Level_Abstract.TERRAIN_BLOCKED)
+        --     self:setMapValue(x, 10, Level_Abstract.TERRAIN_BLOCKED)
 
-        for y = 2, 9 do
-            self:setMapValue(1, y, Level_Abstract.TERRAIN_BLOCKED)
-            self:setMapValue(10, y, Level_Abstract.TERRAIN_BLOCKED)
+        --     self:setTileValue(x, 1, 'wall')
+        --     self:setTileValue(x, 10, 'wall')
+        -- end
 
-            self:setTileValue(1, y, 'wall')
-            self:setTileValue(10, y, 'wall')
-        end
+        -- for y = 2, 9 do
+        --     self:setMapValue(1, y, Level_Abstract.TERRAIN_BLOCKED)
+        --     self:setMapValue(10, y, Level_Abstract.TERRAIN_BLOCKED)
+
+        --     self:setTileValue(1, y, 'wall')
+        --     self:setTileValue(10, y, 'wall')
+        -- end
     end
 }
 

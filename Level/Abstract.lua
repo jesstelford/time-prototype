@@ -3,31 +3,13 @@ Level_Abstract = Class {
 
     --- Constructor
     -- @param self A reference to the object being constructed
-    function(self, mapWidth, mapHeight, tileWidth, tileHeight)
+    function(self, map, tiles, tileWidth, tileHeight)
 
-        self.mapWidth = mapWidth
-        self.mapHeight = mapHeight
+        self:setMap(map);
+        self:setTiles(tiles);
 
         self.tileWidth = tileWidth
         self.tileHeight = tileHeight
-
-        -- Reset the map to all 'Passable'
-        self.map = {}
-        for y = 1, mapHeight do
-            self.map[y] = {}
-            for x = 1, mapWidth do
-                self.map[y][x] = Level_Abstract.TERRAIN_PASSABLE
-            end
-        end
-
-        -- Reset the tiles to all nil
-        self.tiles = {}
-        for y = 1, mapHeight do
-            self.tiles[y] = {}
-            for x = 1, mapWidth do
-                self.tiles[y][x] = Level_Abstract.TILE_NONE
-            end
-        end
 
     end
 }
@@ -73,14 +55,29 @@ function Level_Abstract:getMapHeight()
     return self.mapHeight
 end
 
---- Set the entire map along with width and height
-function Level_Abstract:setMap(map, mapWidth, mapHeight)
+--- Set the entire map, the height equates to the number of sub tables, and
+-- the width is calculated as the length of the shortest sub table
+-- @param map (table) a table of tables representing rows of the map. Will be
+-- deep copied.
+function Level_Abstract:setMap(map)
+
+    -- deep copy of the map
     self.map = tree.clone(map)
-    self.mapWidth = mapWidth
-    self.mapHeight = mapHeight
+
+    self.mapHeight = #self.map
+    self.mapWidth = nil
+
+    for y = 1, self.mapHeight do
+        if self.mapWidth == nil or #self.map[y] < self.mapWidth then
+            self.mapWidth = #self.map[y]
+        end
+    end
 end
 
---- Set the entire map along with width and height
+--- Set the tiles and their pixel sizes. Will perform a deep copy of the table
+-- @param tiles (table) the tile Ids of the tiles map
+-- @param tileWidth (int) the pixel width of each tile
+-- @param tileHeight (int) the pixel height of each tile
 function Level_Abstract:setTiles(tiles, tileWidth, tileHeight)
     self.tiles = tree.clone(tiles)
     self.tileWidth = tileWidth

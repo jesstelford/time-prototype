@@ -8,7 +8,7 @@ Level_1 = Class {
     -- @param image (Image) The image to render
     function(self)
 
-        Level_Abstract.construct(self, 10, 10, 10, 10)
+        Level_Abstract.construct(self, 10, 10, 20, 20)
 
         self:setTileTypeImage('wall', love.graphics.newImage('wall.png'))
 

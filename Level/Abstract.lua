@@ -115,17 +115,17 @@ function Level_Abstract:setTileValue(x, y, value)
 end
 
 function Level_Abstract:setTileTypeImage(value, image)
-    tileImages.value = image
+    self.tileImages[value] = image
 end
 
 function Level_Abstract:draw()
     for y = 1, self.mapHeight do
         for x = 1, self.mapWidth do
             -- only if an image has been set for this tile type
-            if self.tileImages[self.tiles[y][x]] != nil then
+            if self.tileImages[self.tiles[y][x]] ~= nil then
                 local drawX = (x - 1) * self.tileWidth
                 local drawY = (y - 1) * self.tileHeight
-                -- draw self.tileImages[self.tiles[y][x]]
+                love.graphics.draw(self.tileImages[self.tiles[y][x]], drawX, drawY)
             end
         end
     end

@@ -3,12 +3,14 @@ Gamestate = require "hump.gamestate"
 
 require "std"
 
-require "Player"
-require "State.Load"
-require "State.Game"
+require "Character.Abstract"
+require "Character.Player.Default"
 
 require "Level.Abstract"
 require "Level.1"
+
+require "State.Load"
+require "State.Game"
 
 -- Called once before anything
 function love.load()

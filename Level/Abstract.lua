@@ -145,7 +145,7 @@ function Level_Abstract:draw()
 end
 
 function Level_Abstract:addEnemy(enemy)
-    -- TODO: Append to the end of self.enemies
+    table.insert(self.enemies, enemy)
 end
 
 function Level_Abstract:getEnemies()
@@ -153,7 +153,7 @@ function Level_Abstract:getEnemies()
 end
 
 function Level_Abstract:addObstacle(obstacle)
-    -- TODO: Append to the end of self.obstacles
+    table.insert(self.obstacles, obstacle)
 end
 
 function Level_Abstract:getObstacles()

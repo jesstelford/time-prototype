@@ -13,3 +13,13 @@ Character_Player_Default = Class {
 
 -- Required variable from Abstract class
 Character_Player_Default.pos = {x=300,y=300}
+
+-- TODO: Record movements. Overload move functions, and log each movement
+-- along with the frame?
+
+-- TODO: Play back movements.
+
+-- TODO: When playing back movements, have a force check to see if 'magic'
+-- should happen or not. If not, and while all players being played back
+-- simultaneously and cannot complete level, then Fail COndition triggered,
+-- else Win Condition triggered.

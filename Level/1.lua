@@ -73,7 +73,7 @@ Level_1 = Class {
             20
         )
 
-        self:setTileTypeImage(1, love.graphics.newImage('wall.png'))
+        self:setTileTypeImage(1, love.graphics.newImage('media/images/wall.png'))
 
     end
 }

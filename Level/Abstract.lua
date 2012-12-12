@@ -25,6 +25,8 @@ Level_Abstract = Class {
 -- Level_Abstract.obstacles = {}
 -- Level_Abstract.players = {}
 
+Level_Abstract.currentPlayerIndex = nil
+
 -- psuedo class constants
 Level_Abstract.TERRAIN_PASSABLE = 0
 Level_Abstract.TERRAIN_BLOCKED = 1
@@ -192,8 +194,22 @@ function Level_Abstract:addPlayer(player)
 
     table.insert(self.players, player)
 
+    -- update which player is the current player if not already set
+    if self.currentPlayerIndex == nil then
+        self.currentPlayerIndex = #self.players
+    end
+
 end
 
 function Level_Abstract:getPlayers()
     return self.players
+end
+
+function Level_Abstract:getCurrentPlayer()
+
+    if self.currentPlayerIndex == nil then
+        error('No current player set.')
+    end
+
+    return self.players[self.currentPlayerIndex]
 end

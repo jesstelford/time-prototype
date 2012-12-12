@@ -13,6 +13,8 @@ function State_Game:update(dt)
 
     local dist = (State_Game.speed * dt)
 
+    local player = levelOne:getCurrentPlayer()
+
     if love.keyboard.isDown("right") then
         player:moveX(dist)
     elseif love.keyboard.isDown("left") then
@@ -28,8 +30,6 @@ function State_Game:update(dt)
 end
 
 function State_Game:draw()
-
-    player:draw()
 
     levelOne:draw()
 

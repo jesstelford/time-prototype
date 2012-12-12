@@ -84,3 +84,4 @@ Level_1.tiles = {}
 Level_1.tileImages = {}
 Level_1.enemies = {}
 Level_1.obstacles = {}
+Level_1.players = {}

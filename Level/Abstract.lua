@@ -23,6 +23,7 @@ Level_Abstract = Class {
 -- Level_Abstract.tileImages = {}
 -- Level_Abstract.enemies = {}
 -- Level_Abstract.obstacles = {}
+-- Level_Abstract.players = {}
 
 -- psuedo class constants
 Level_Abstract.TERRAIN_PASSABLE = 0
@@ -132,6 +133,14 @@ function Level_Abstract:setTileTypeImage(value, image)
 end
 
 function Level_Abstract:draw()
+    self:drawLevel()
+    self:drawEnemies()
+    self:drawObstacles()
+    self:drawPlayers()
+end
+
+function Level_Abstract:drawLevel()
+
     for y = 1, self.mapHeight do
         for x = 1, self.mapWidth do
             -- only if an image has been set for this tile type
@@ -141,6 +150,25 @@ function Level_Abstract:draw()
                 love.graphics.draw(self.tileImages[self.tiles[y][x]], drawX, drawY)
             end
         end
+    end
+
+end
+
+function Level_Abstract:drawEnemies()
+    for i = 1, #self.enemies do
+        self.enemies[i]:draw()
+    end
+end
+
+function Level_Abstract:drawObstacles()
+    for i = 1, #self.obstacles do
+        self.obstacles[i]:draw()
+    end
+end
+
+function Level_Abstract:drawPlayers()
+    for i = 1, #self.players do
+        self.players[i]:draw()
     end
 end
 
@@ -158,4 +186,14 @@ end
 
 function Level_Abstract:getObstacles()
     return self.obstacles
+end
+
+function Level_Abstract:addPlayer(player)
+
+    table.insert(self.players, player)
+
+end
+
+function Level_Abstract:getPlayers()
+    return self.players
 end

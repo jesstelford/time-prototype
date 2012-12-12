@@ -15,3 +15,8 @@ Source code is released under the FreeBSD Licence. See LICENSE.md
 ## Run
 
     $ love /path/to/src
+
+## Notes
+
+Lua passes variables by value, but tables by reference.
+The stdlib provides tree.clone(table) for deep copy of tables.

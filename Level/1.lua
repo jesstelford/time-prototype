@@ -75,6 +75,12 @@ Level_1 = Class {
 
         self:setTileTypeImage(1, love.graphics.newImage('media/images/wall.png'))
 
+        self:addEnemy(
+            Character_Enemy_Default(
+                love.graphics.newImage("media/images/blob.png")
+            )
+        )
+
     end
 }
 

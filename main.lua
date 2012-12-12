@@ -5,6 +5,7 @@ require "std"
 
 require "Character.Abstract"
 require "Character.Player.Default"
+require "Character.Enemy.Default"
 
 require "Level.Abstract"
 require "Level.1"

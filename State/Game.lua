@@ -16,15 +16,15 @@ function State_Game:update(dt)
     local player = levelOne:getCurrentPlayer()
 
     if love.keyboard.isDown("right") then
-        player:moveX(dist)
+        Signals.emit('key-right', dist)
     elseif love.keyboard.isDown("left") then
-        player:moveX(-dist)
+        Signals.emit('key-left', -dist)
     end 
 
     if love.keyboard.isDown("up") then
-        player:moveY(-dist)
+        Signals.emit('key-up', -dist)
     elseif love.keyboard.isDown("down") then
-        player:moveY(dist)
+        Signals.emit('key-down', dist)
     end 
 
 end

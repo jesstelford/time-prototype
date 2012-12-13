@@ -87,6 +87,8 @@ Level_1 = Class {
             )
         )
 
+        -- TODO: Register an observer for input for the current player
+
     end
 }
 

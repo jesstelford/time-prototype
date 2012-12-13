@@ -1,5 +1,6 @@
 Class = require "hump.class"
 Gamestate = require "hump.gamestate"
+Signals = require "hump.signal"
 
 require "std"
 

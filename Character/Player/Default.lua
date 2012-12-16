@@ -8,8 +8,6 @@ Character_Player_Default = Class {
     -- @param image (Image) The image to render
     function(self, image)
         Character_Abstract.construct(self, image)
-
-        self:registerForInput()
     end
 }
 
@@ -32,16 +30,17 @@ Character_Player_Default.inputCallbacks = {}
 
 function Character_Player_Default:registerForInput()
 
-    local rightCallback = Signals.register('key-right', self.moveX, self)
+    -- Use a closure to correctly execute a method on a table (a class member method)
+    local rightCallback = Signals.register('key-right', function(...) self:moveX(...) end)
     table.insert(self.inputCallbacks, rightCallback)
 
-    local leftCallback = Signals.register('key-left', self.moveX, self)
+    local leftCallback = Signals.register('key-left', function(...) self:moveX(...) end)
     table.insert(self.inputCallbacks, leftCallback)
 
-    local upCallback = Signals.register('key-up', self.moveY, self)
+    local upCallback = Signals.register('key-up', function(...) self:moveY(...) end)
     table.insert(self.inputCallbacks, upCallback)
 
-    local downCallback = Signals.register('key-down', self.moveY, self)
+    local downCallback = Signals.register('key-down', function(...) self:moveY(...) end)
     table.insert(self.inputCallbacks, downCallback)
 
 end

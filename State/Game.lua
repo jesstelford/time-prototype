@@ -33,10 +33,4 @@ function State_Game:draw()
 
     levelOne:draw()
 
-    local string = ""
-    for y = 1, levelOne:getMapHeight() do
-        string = string .. table.concat(levelOne.map[y], ',') .. "\n"
-    end
-
-    love.graphics.print(string, 10, 10)
 end

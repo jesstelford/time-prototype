@@ -32,16 +32,16 @@ Character_Player_Default.inputCallbacks = {}
 
 function Character_Player_Default:registerForInput()
 
-    local rightCallback = Signals.register('key-right', self.moveX)
+    local rightCallback = Signals.register('key-right', self.moveX, self)
     table.insert(self.inputCallbacks, rightCallback)
 
-    local leftCallback = Signals.register('key-left', self.moveX)
+    local leftCallback = Signals.register('key-left', self.moveX, self)
     table.insert(self.inputCallbacks, leftCallback)
 
-    local upCallback = Signals.register('key-up', self.moveY)
+    local upCallback = Signals.register('key-up', self.moveY, self)
     table.insert(self.inputCallbacks, upCallback)
 
-    local downCallback = Signals.register('key-down', self.moveY)
+    local downCallback = Signals.register('key-down', self.moveY, self)
     table.insert(self.inputCallbacks, downCallback)
 
 end

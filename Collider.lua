@@ -15,7 +15,7 @@ end
 function Collider:CircleToCircle(from, to)
 
     -- Correct type assertion
-    assert(from:is_a('Collidable_Circle') and to:is_a('Collidable_Circle'), "Both Collidable Objects must be Collidable_Circle's")
+    assert(from:is_a(Collidable_Circle) and to:is_a(Collidable_Circle), "Both Collidable Objects must be Collidable_Circle's")
 
     centerFrom = from:getPosition()
     centerTo = to:getPosition()

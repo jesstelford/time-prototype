@@ -10,25 +10,27 @@ Character_Abstract = Class {
     end
 }
 
+Character_Abstract.position = Vector(300, 300)
+
 -- default class variables, must be copied to derivative classes, and renamed
 -- to be the correct class
--- Character_Abstract.pos = {x=0,y=0}
+-- Character_Abstract.position = Vector(0,0)
 
 -- public member functions
 
 --- Move the character in the X axis
 -- @param dist (float) The distance in pixels to move
 function Character_Abstract:moveX(dist)
-    self.pos.x = self.pos.x + dist;
+    self.position.x = self.position.x + dist;
 end
 
 --- Move the character in the Y axis
 -- @param dist (float) The distance in pixels to move
 function Character_Abstract:moveY(dist)
-    self.pos.y = self.pos.y + dist;
+    self.position.y = self.position.y + dist;
 end
 
 --- Draw the character on the screen based on current position
 function Character_Abstract:draw()
-    love.graphics.draw(self.image, self.pos.x, self.pos.y)
+    love.graphics.draw(self.image, self.position.x, self.position.y)
 end

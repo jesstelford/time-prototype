@@ -17,11 +17,14 @@ function Collidable_Abstract:collideWith(collidable)
 
     collider = Collider()
 
-    funcName = self.name .. 'To' .. collidable.name
+    fromType = self.getCollidableType()
+    toType = self.getCollidableType()
+
+    funcName = fromType .. 'To' .. toType
     if type(collider[funcName]) == 'function' then
         return collider[funcName](collider, self, collidable)
     else
-        funcName = collidable.name .. 'To' .. self.name
+        funcName = toType .. 'To' .. fromType
         if type(collider[funcName]) == 'function' then
             return collider[funcName](collider, collidable, self)
         else
@@ -33,4 +36,8 @@ end
 
 function Collidable_Abstract:getPosition()
     return self.position
+end
+
+function Collidable_Abstract:getCollidableType()
+    return 'Abstract'
 end

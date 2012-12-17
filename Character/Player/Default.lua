@@ -13,9 +13,6 @@ Character_Player_Default = Class {
     end
 }
 
--- Required variable from Abstract class
-Character_Player_Default.pos = {x=300,y=300}
-
 -- local variables
 Character_Player_Default.inputCallbacks = {}
 

@@ -107,7 +107,7 @@ end
 -- @return boolean true if coordinate passable
 function Level_Abstract:isMapPassable(x, y)
     if not self:inBounds(x, y) then
-        error()
+        error('Map coordinates out of bounds')
     end
 
     if self.map[y][x] == Level_Abstract.TERRAIN_PASSABLE then

@@ -4,29 +4,28 @@ Collidable_Abstract = Class {
     --- Constructor
     -- @param self A reference to the object being constructed
     function(self, xPosition, yPosition)
-        self.position.x = xPosition
-        self.position.y = yPosition
+        self.position = Vector(xPosition, yPosition)
     end
 }
 
 -- variables that implementing classes must define
--- Collidable_Abstract.position = vector(0,0)
+-- Collidable_Abstract.position = Vector(0,0)
 
 function Collidable_Abstract:collideWith(collidable)
     -- must be of type Collidable_Abstract to collide with
-    assert(collidable:is_a('Collidable_Abstract'), 'Can only collide with Collidable objects')
+    assert(collidable:is_a(Collidable_Abstract), 'Can only collide with Collidable objects')
 
     collider = Collider()
 
-    funcName = self.name .. 'To' .. col.name
+    funcName = self.name .. 'To' .. collidable.name
     if type(collider[funcName]) == 'function' then
-        return collider[funcName](collider, self, col)
+        return collider[funcName](collider, self, collidable)
     else
-        funcName = col.name .. 'To' .. self.name
+        funcName = collidable.name .. 'To' .. self.name
         if type(collider[funcName]) == 'function' then
-            return collider[funcName](collider, col, self)
+            return collider[funcName](collider, collidable, self)
         else
-            return collider:default(self, col)
+            return collider:default(self, collidable)
         end
     end
 

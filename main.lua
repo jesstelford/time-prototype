@@ -5,6 +5,10 @@ Vector = require "hump.vector"
 
 require "std"
 
+require "Collider"
+require "Collidable.Abstract"
+require "Collidable.Circle"
+
 require "Character.Abstract"
 require "Character.Player.Default"
 require "Character.Enemy.Default"
@@ -14,10 +18,6 @@ require "Level.1"
 
 require "State.Load"
 require "State.Game"
-
-require "Collider"
-require "Collidable.Abstract"
-require "Collidable.Circle"
 
 -- Called once before anything
 function love.load()

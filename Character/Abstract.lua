@@ -1,6 +1,7 @@
 -- Abstract character class containing basic functionality for all characters
 -- in the game (enemies, players, etc)
 Character_Abstract = Class {
+    name = 'Character_Abstract',
     --- Constructor
     -- @param self A reference to the object being constructed
     -- @param image (Image) The image to render

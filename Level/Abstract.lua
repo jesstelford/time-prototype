@@ -134,6 +134,22 @@ function Level_Abstract:setTileTypeImage(value, image)
     self.tileImages[value] = image
 end
 
+function Level_Abstract:update()
+
+    local player = self:getCurrentPlayer()
+    for y = 1, self.mapHeight do
+        for x = 1, self.mapWidth do
+            if not self:isMapPassable(x, y) then
+                local wallCollider = Collidable_Circle(x * self.tileWidth, y * self.tileHeight, self.tileHeight / 2)
+                normal = wallCollider:collideWith(player)
+                if normal ~= nil then
+                    print(normal)
+                end
+            end
+        end
+    end
+end
+
 function Level_Abstract:draw()
     self:drawLevel()
     self:drawEnemies()

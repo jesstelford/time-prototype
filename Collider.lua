@@ -3,6 +3,11 @@ Collider = Class {
     name = 'Collider'
 }
 
+--- Default collision for two objects
+function Collider:default(from, to)
+    return nil
+end
+
 --- Check for collision between two circles
 -- @param from Collidable_Circle The circle to collide 'from'
 -- @param to Collidable_Circle The circle to collide 'to'

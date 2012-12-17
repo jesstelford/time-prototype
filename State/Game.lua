@@ -11,6 +11,8 @@ end
 
 function State_Game:update(dt)
 
+    levelOne:update(dt)
+
     local dist = (State_Game.speed * dt)
 
     local player = levelOne:getCurrentPlayer()

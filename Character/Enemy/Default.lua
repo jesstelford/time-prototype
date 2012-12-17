@@ -1,6 +1,7 @@
 Character_Enemy_Default = Class {
 
     inherits = Character_Abstract,
+    name = 'Character_Enemy_Default',
 
     --- Constructor
     -- @param self A reference to the object being constructed

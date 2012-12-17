@@ -1,13 +1,15 @@
 -- Declare a new class called Level_1
 Character_Player_Default = Class {
 
-    inherits = Character_Abstract,
+    inherits = {Character_Abstract, Collidable_Circle},
+    name = 'Character_Player_Default',
 
     --- Constructor
     -- @param self A reference to the object being constructed
     -- @param image (Image) The image to render
     function(self, image)
         Character_Abstract.construct(self, image)
+        Collidable_Circle.construct(self, 300, 300, 20)
     end
 }
 

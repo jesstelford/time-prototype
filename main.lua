@@ -1,6 +1,7 @@
 Class = require "hump.class"
 Gamestate = require "hump.gamestate"
 Signals = require "hump.signal"
+Vector = require "hump.vector"
 
 require "std"
 
@@ -13,6 +14,10 @@ require "Level.1"
 
 require "State.Load"
 require "State.Game"
+
+require "Collider"
+require "Collidable.Abstract"
+require "Collidable.Circle"
 
 -- Called once before anything
 function love.load()

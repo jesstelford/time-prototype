@@ -1,7 +1,7 @@
 -- Declare a new class called Level_1
 Character_Player_Default = Class {
 
-    inherits = {Character_Abstract, Collidable_Circle},
+    inherits = {Character_Abstract, Collidable_Box},
     name = 'Character_Player_Default',
 
     --- Constructor
@@ -9,7 +9,7 @@ Character_Player_Default = Class {
     -- @param image (Image) The image to render
     function(self, image, xPosition, yPosition)
         Character_Abstract.construct(self, image)
-        Collidable_Circle.construct(self, xPosition, yPosition, image:getHeight() / 2)
+        Collidable_Box.construct(self, xPosition, yPosition, image:getWidth(), image:getHeight())
 
         --- @var Store all the registered callbacks for later de-registering
         self.inputCallbacks = {}

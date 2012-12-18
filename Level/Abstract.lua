@@ -140,7 +140,7 @@ function Level_Abstract:update()
             if not self:isMapPassable(x, y) then
                 local xCenter = self.tileWidth * (x - 1) + self.drawOffset.x
                 local yCenter = self.tileHeight * (y - 1) + self.drawOffset.y
-                local wallCollider = Collidable_Circle(xCenter, yCenter, self.tileHeight / 2)
+                local wallCollider = Collidable_Box(xCenter, yCenter, self.tileWidth, self.tileHeight)
                 normal = wallCollider:collideWith(player)
                 if normal ~= nil then
                     print(normal)
@@ -179,15 +179,17 @@ function Level_Abstract:drawCollisionDebug()
         for x = 1, self.mapWidth do
             -- only if an image has been set for this tile type
             if not self:isMapPassable(x, y) then
-                local drawX = self.tileWidth * (x - 1) + self.drawOffset.x
-                local drawY = self.tileHeight * (y - 1) + self.drawOffset.y
-                love.graphics.circle('line', drawX, drawY, self.tileHeight / 2)
+                local drawX = self.tileWidth * (x - 1.5) + self.drawOffset.x
+                local drawY = self.tileHeight * (y - 1.5) + self.drawOffset.y
+                love.graphics.rectangle('line', drawX, drawY, self.tileWidth, self.tileHeight)
             end
         end
     end
 
     local player = self:getCurrentPlayer()
-    love.graphics.circle('line', player:getPosition().x, player:getPosition().y, player:getCollisionRadius())
+    local colSize = player:getCollisionSize()
+    local colPos = player:getPosition()
+    love.graphics.rectangle('line', colPos.x - (colSize.x / 2), colPos.y - (colSize.y / 2), colSize.x, colSize.y)
 end
 
 function Level_Abstract:drawEnemies()

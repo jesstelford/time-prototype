@@ -8,6 +8,7 @@ require "std"
 require "Collider"
 require "Collidable.Abstract"
 require "Collidable.Circle"
+require "Collidable.Box"
 
 require "Character.Abstract"
 require "Character.Player.Default"

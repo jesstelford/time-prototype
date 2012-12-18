@@ -25,7 +25,7 @@ function Collider:CircleToCircle(from, to)
     distY = (centerTo.y - centerFrom.y)
     distanceSquared = (distX * distX) + (distY * distY)
 
-    minDistance = from:getRadius() + to:getRadius()
+    minDistance = from:getCollisionRadius() + to:getCollisionRadius()
 
     -- ensure we square both sides of the equation, and check for difference
     if distanceSquared < (minDistance * minDistance) then

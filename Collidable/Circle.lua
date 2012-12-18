@@ -10,7 +10,7 @@ Collidable_Circle = Class {
     end
 }
 
-function Collidable_Circle:getRadius()
+function Collidable_Circle:getCollisionRadius()
     return self.radius
 end
 

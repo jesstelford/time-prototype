@@ -138,7 +138,9 @@ function Level_Abstract:update()
     for y = 1, self.mapHeight do
         for x = 1, self.mapWidth do
             if not self:isMapPassable(x, y) then
-                local wallCollider = Collidable_Circle(x * self.tileWidth, y * self.tileHeight, self.tileHeight / 2)
+                local xCenter = self.tileWidth * (x - 1) + self.drawOffset.x
+                local yCenter = self.tileHeight * (y - 1) + self.drawOffset.y
+                local wallCollider = Collidable_Circle(xCenter, yCenter, self.tileHeight / 2)
                 normal = wallCollider:collideWith(player)
                 if normal ~= nil then
                     print(normal)

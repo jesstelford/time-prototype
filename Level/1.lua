@@ -77,7 +77,9 @@ Level_1 = Class {
 
         self:addPlayer(
             Character_Player_Default(
-                love.graphics.newImage("media/images/hamster.png")
+                love.graphics.newImage("media/images/hamster.png"),
+                300,
+                300
             )
         )
 

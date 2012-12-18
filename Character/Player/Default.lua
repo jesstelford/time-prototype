@@ -7,9 +7,9 @@ Character_Player_Default = Class {
     --- Constructor
     -- @param self A reference to the object being constructed
     -- @param image (Image) The image to render
-    function(self, image)
+    function(self, image, xPosition, yPosition)
         Character_Abstract.construct(self, image)
-        Collidable_Circle.construct(self, 300, 300, image:getHeight() / 2)
+        Collidable_Circle.construct(self, xPosition, yPosition, image:getHeight() / 2)
 
         --- @var Store all the registered callbacks for later de-registering
         self.inputCallbacks = {}

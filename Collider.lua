@@ -38,3 +38,30 @@ function Collider:CircleToCircle(from, to)
 
     return nil
 end
+
+--- Check for collision between two boxes
+-- @param from Collidable_Box The box to collide 'from'
+-- @param to Collidable_Box The box to collide 'to'
+-- @return nil|Vector The vector normal of collision from 'from' in the direction of 'to'
+function Collider:BoxToBox(from, to)
+
+    -- Correct type assertion
+    assert(from:is_a(Collidable_Box) and to:is_a(Collidable_Box), "Both Collidable Objects must be Collidable_Box's")
+
+    centerFrom = from:getPosition()
+    centerTo = to:getPosition()
+
+    sizeFrom = from:getCollisionSize()
+    sizeTo = to:getCollisionSize()
+
+    if (
+        (math.abs(centerFrom.x - centerTo.x) * 2 < (sizeFrom.x + sizeTo.x))
+        and (math.abs(centerFrom.y - centerTo.y) * 2 < (sizeFrom.y + sizeTo.y))
+    ) then
+        -- collision! :D
+        -- TODO: Return some form of collision normal
+        return Vector(0,0)
+    end
+
+    return nil
+end

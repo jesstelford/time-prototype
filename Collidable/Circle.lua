@@ -10,8 +10,6 @@ Collidable_Circle = Class {
     end
 }
 
-Collidable_Circle.radius = 1
-
 function Collidable_Circle:getRadius()
     return self.radius
 end

@@ -8,9 +8,6 @@ Collidable_Abstract = Class {
     end
 }
 
--- variables that implementing classes must define
--- Collidable_Abstract.position = Vector(0,0)
-
 function Collidable_Abstract:collideWith(collidable)
     -- must be of type Collidable_Abstract to collide with
     assert(collidable:is_a(Collidable_Abstract), 'Can only collide with Collidable objects')

@@ -5,6 +5,17 @@ Level_Abstract = Class {
     -- @param self A reference to the object being constructed
     function(self, map, tiles, tileWidth, tileHeight)
 
+        -- Set the member variables for this instance
+        self.map = {}
+        self.tiles = {}
+        self.tileImages = {}
+        self.enemies = {}
+        self.obstacles = {}
+        self.players = {}
+        self.drawOffset = Vector(10,10)
+        self.currentPlayerIndex = nil
+
+        -- Operate on passed in parameters
         self:setMap(map);
         self:setTiles(tiles);
 
@@ -13,20 +24,6 @@ Level_Abstract = Class {
 
     end
 }
-
--- default class variables
--- Following must be copied to dervative class (due to tables being copied by
--- reference, rather than value to sub classes):
---
--- Level_Abstract.map = {}
--- Level_Abstract.tiles = {}
--- Level_Abstract.tileImages = {}
--- Level_Abstract.enemies = {}
--- Level_Abstract.obstacles = {}
--- Level_Abstract.players = {}
-
-Level_Abstract.currentPlayerIndex = nil
-Level_Abstract.drawOffset = Vector(10,10)
 
 -- psuedo class constants
 Level_Abstract.TERRAIN_PASSABLE = 0

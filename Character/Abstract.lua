@@ -1,22 +1,17 @@
 -- Abstract character class containing basic functionality for all characters
 -- in the game (enemies, players, etc)
 Character_Abstract = Class {
+
     name = 'Character_Abstract',
+
     --- Constructor
     -- @param self A reference to the object being constructed
     -- @param image (Image) The image to render
     function(self, image)
         self.image = image
+        self.position = Vector(0,0)
     end
 }
-
-Character_Abstract.position = Vector(300, 300)
-
--- default class variables, must be copied to derivative classes, and renamed
--- to be the correct class
--- Character_Abstract.position = Vector(0,0)
-
--- public member functions
 
 --- Move the character in the X axis
 -- @param dist (float) The distance in pixels to move

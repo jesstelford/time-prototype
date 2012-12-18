@@ -9,12 +9,12 @@ Character_Player_Default = Class {
     -- @param image (Image) The image to render
     function(self, image)
         Character_Abstract.construct(self, image)
-        Collidable_Circle.construct(self, 300, 300, 20)
+        Collidable_Circle.construct(self, 300, 300, image:getHeight() / 2)
+
+        --- @var Store all the registered callbacks for later de-registering
+        self.inputCallbacks = {}
     end
 }
-
--- local variables
-Character_Player_Default.inputCallbacks = {}
 
 -- TODO: Record movements. Overload move functions, and log each movement
 -- along with the frame?

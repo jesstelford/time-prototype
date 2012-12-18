@@ -87,17 +87,8 @@ Level_1 = Class {
             )
         )
 
-        -- TODO: Register an observer for input for the current player
         local player = self:getCurrentPlayer()
         player:registerForInput()
 
     end
 }
-
--- Required variable from Abstract class
-Level_1.map = {}
-Level_1.tiles = {}
-Level_1.tileImages = {}
-Level_1.enemies = {}
-Level_1.obstacles = {}
-Level_1.players = {}

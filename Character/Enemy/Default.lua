@@ -10,6 +10,3 @@ Character_Enemy_Default = Class {
         Character_Abstract.construct(self, image)
     end
 }
-
--- Required variable from Abstract class
-Character_Enemy_Default.pos = {x=10,y=10}

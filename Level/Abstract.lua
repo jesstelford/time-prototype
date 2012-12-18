@@ -151,13 +151,14 @@ function Level_Abstract:update()
 end
 
 function Level_Abstract:draw()
-    self:drawLevel()
+    self:drawTiles()
     self:drawEnemies()
     self:drawObstacles()
     self:drawPlayers()
+    self:drawCollisionDebug()
 end
 
-function Level_Abstract:drawLevel()
+function Level_Abstract:drawTiles()
 
     for y = 1, self.mapHeight do
         for x = 1, self.mapWidth do
@@ -170,6 +171,23 @@ function Level_Abstract:drawLevel()
         end
     end
 
+end
+
+function Level_Abstract:drawCollisionDebug()
+
+    for y = 1, self.mapHeight do
+        for x = 1, self.mapWidth do
+            -- only if an image has been set for this tile type
+            if not self:isMapPassable(x, y) then
+                local drawX = self.tileWidth * (x - 1) + self.drawOffset.x
+                local drawY = self.tileHeight * (y - 1) + self.drawOffset.y
+                love.graphics.circle('line', drawX, drawY, self.tileHeight / 2)
+            end
+        end
+    end
+
+    local player = self:getCurrentPlayer()
+    love.graphics.circle('line', player:getPosition().x, player:getPosition().y, player:getCollisionRadius())
 end
 
 function Level_Abstract:drawEnemies()

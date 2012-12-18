@@ -32,5 +32,5 @@ end
 
 --- Draw the character on the screen based on current position
 function Character_Abstract:draw()
-    love.graphics.draw(self.image, self.position.x, self.position.y)
+    love.graphics.draw(self.image, self.position.x - (self.image:getWidth() / 2), self.position.y - (self.image:getHeight() / 2))
 end

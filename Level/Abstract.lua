@@ -26,6 +26,7 @@ Level_Abstract = Class {
 -- Level_Abstract.players = {}
 
 Level_Abstract.currentPlayerIndex = nil
+Level_Abstract.drawOffset = Vector(10,10)
 
 -- psuedo class constants
 Level_Abstract.TERRAIN_PASSABLE = 0
@@ -163,8 +164,8 @@ function Level_Abstract:drawLevel()
         for x = 1, self.mapWidth do
             -- only if an image has been set for this tile type
             if self.tileImages[self.tiles[y][x]] ~= nil then
-                local drawX = (x - 1) * self.tileWidth
-                local drawY = (y - 1) * self.tileHeight
+                local drawX = self.tileWidth * (x - 1.5) + self.drawOffset.x
+                local drawY = self.tileHeight * (y - 1.5) + self.drawOffset.y
                 love.graphics.draw(self.tileImages[self.tiles[y][x]], drawX, drawY)
             end
         end

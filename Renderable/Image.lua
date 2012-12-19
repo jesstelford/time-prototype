@@ -2,6 +2,9 @@ Renderable_Image = Class {
     inherits = Renderable_Abstract,
 
     function(self, image, renderOffsetX, renderOffsetY)
+
+        Renderable_Abstract.construct(self)
+
         self.image = image
         self.renderPosition = Vector(0,0)
         self.renderOffset = Vector(renderOffsetX, renderOffsetY)

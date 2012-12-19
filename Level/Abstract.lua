@@ -179,15 +179,22 @@ function Level_Abstract:update()
 end
 
 function Level_Abstract:draw()
-    self:drawTiles()
-    self:drawEnemies()
-    self:drawObstacles()
-    self:drawPlayers()
+
+    renderer = Renderer_Image()
+
+    self:_renderTiles(renderer)
+
+    self:_renderRenderableImageTable(self.enemies, renderer)
+    self:_renderRenderableImageTable(self.obstacles, renderer)
+    self:_renderRenderableImageTable(self.players, renderer)
+
     self:drawCollisionDebug()
 end
 
-function Level_Abstract:drawTiles()
-    self:_renderTiles(Renderer_Image())
+function Level_Abstract:drawCollisionDebug()
+    renderer = Renderer_Collision()
+    self:_renderTiles(renderer)
+    self:_renderRenderableImageTable(self.players, renderer)
 end
 
 function Level_Abstract:_renderTiles(renderer)
@@ -200,27 +207,6 @@ function Level_Abstract:_renderTiles(renderer)
             end
         end
     end
-end
-
-function Level_Abstract:drawCollisionDebug()
-    renderer = Renderer_Collision()
-    self:_renderTiles(renderer)
-    self:_renderRenderableImageTable(self.players, renderer)
-end
-
-function Level_Abstract:drawEnemies()
-    renderer = Renderer_Image()
-    self:_renderRenderableImageTable(self.enemies, renderer)
-end
-
-function Level_Abstract:drawObstacles()
-    renderer = Renderer_Image()
-    self:_renderRenderableImageTable(self.obstacles, renderer)
-end
-
-function Level_Abstract:drawPlayers()
-    renderer = Renderer_Image()
-    self:_renderRenderableImageTable(self.players, renderer)
 end
 
 function Level_Abstract:_renderRenderableImageTable(table, renderer)

@@ -135,7 +135,25 @@ function Level_Abstract:setTileValue(x, y, value)
         error()
     end
 
-    self.tiles[y][x] = value
+    if value ~= nil and self.tileImages[value] ~= nil then
+
+        local drawX = self.tileWidth * (x - 1.5) + self.drawOffset.x
+        local drawY = self.tileHeight * (y - 1.5) + self.drawOffset.y
+
+        if self.tiles[y] == nil then
+            self.tiles[y] = {}
+        end
+
+        if value == Level_Abstract.TILE_WALL then
+
+            -- set the tile
+            self.tiles[y][x] = Scenery_Wall(self.tileImages[value], drawX, drawY)
+
+        -- elseif tiles[y][x] == Level_Abstract.TILE_SOMETHING then
+        --     self.tiles[y][x] = Scenery_Something()
+        end
+
+    end
 end
 
 function Level_Abstract:setTileTypeImage(value, image)
@@ -170,13 +188,14 @@ end
 
 function Level_Abstract:drawTiles()
 
+    renderer = Renderer_Image()
+
     for y = 1, self.mapHeight do
         for x = 1, self.mapWidth do
-            -- only if an image has been set for this tile type
-            if self.tileImages[self.tiles[y][x]] ~= nil then
-                local drawX = self.tileWidth * (x - 1.5) + self.drawOffset.x
-                local drawY = self.tileHeight * (y - 1.5) + self.drawOffset.y
-                love.graphics.draw(self.tileImages[self.tiles[y][x]], drawX, drawY)
+            -- only if this tile has been set
+            if self.tiles[y][x] ~= nil then
+                tile = self.tiles[y][x]
+                tile:renderTo(renderer)
             end
         end
     end
@@ -189,11 +208,9 @@ function Level_Abstract:drawCollisionDebug()
 
     for y = 1, self.mapHeight do
         for x = 1, self.mapWidth do
-            -- only if an image has been set for this tile type
-            if not self:isMapPassable(x, y) then
-                local drawX = self.tileWidth * (x - 1.5) + self.drawOffset.x
-                local drawY = self.tileHeight * (y - 1.5) + self.drawOffset.y
-                love.graphics.rectangle('line', drawX, drawY, self.tileWidth, self.tileHeight)
+            -- only if this tile has been set
+            if self.tiles[y][x] ~= nil then
+                self.tiles[y][x]:renderTo(renderer)
             end
         end
     end

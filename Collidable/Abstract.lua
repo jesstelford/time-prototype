@@ -15,7 +15,7 @@ function Collidable_Abstract:collideWith(collidable)
     collider = Collider()
 
     fromType = self.getCollidableType()
-    toType = self.getCollidableType()
+    toType = collidable.getCollidableType()
 
     funcName = fromType .. 'To' .. toType
     if type(collider[funcName]) == 'function' then

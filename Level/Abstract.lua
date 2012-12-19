@@ -175,6 +175,8 @@ end
 
 function Level_Abstract:drawCollisionDebug()
 
+    renderer = Renderer_Collision()
+
     for y = 1, self.mapHeight do
         for x = 1, self.mapWidth do
             -- only if an image has been set for this tile type
@@ -186,10 +188,9 @@ function Level_Abstract:drawCollisionDebug()
         end
     end
 
-    local player = self:getCurrentPlayer()
-    local colSize = player:getCollisionSize()
-    local colPos = player:getPosition()
-    love.graphics.rectangle('line', colPos.x - (colSize.x / 2), colPos.y - (colSize.y / 2), colSize.x, colSize.y)
+    for i = 1, #self.players do
+        self.players[i]:renderTo(renderer)
+    end
 end
 
 function Level_Abstract:drawEnemies()

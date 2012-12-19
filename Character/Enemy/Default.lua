@@ -1,6 +1,6 @@
 Character_Enemy_Default = Class {
 
-    inherits = Character_Abstract,
+    inherits = {Character_Abstract, Collidable_Box},
     name = 'Character_Enemy_Default',
 
     --- Constructor
@@ -8,5 +8,6 @@ Character_Enemy_Default = Class {
     -- @param image (Image) The image to render
     function(self, image)
         Character_Abstract.construct(self, image)
+        Collidable_Box.construct(self, xPosition, yPosition, image:getWidth(), image:getHeight())
     end
 }

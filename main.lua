@@ -8,6 +8,7 @@ require "std"
 require "Renderable"
 require "Renderer.Abstract"
 require "Renderer.Image"
+require "Renderer.Collision"
 
 require "Collider"
 require "Collidable.Abstract"

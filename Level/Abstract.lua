@@ -187,24 +187,10 @@ function Level_Abstract:draw()
 end
 
 function Level_Abstract:drawTiles()
-
-    renderer = Renderer_Image()
-
-    for y = 1, self.mapHeight do
-        for x = 1, self.mapWidth do
-            -- only if this tile has been set
-            if self.tiles[y][x] ~= nil then
-                tile = self.tiles[y][x]
-                tile:renderTo(renderer)
-            end
-        end
-    end
-
+    self:_renderTiles(Renderer_Image())
 end
 
-function Level_Abstract:drawCollisionDebug()
-
-    renderer = Renderer_Collision()
+function Level_Abstract:_renderTiles(renderer)
 
     for y = 1, self.mapHeight do
         for x = 1, self.mapWidth do
@@ -214,6 +200,12 @@ function Level_Abstract:drawCollisionDebug()
             end
         end
     end
+end
+
+function Level_Abstract:drawCollisionDebug()
+
+    self:_renderTiles(Renderer_Collision())
+    renderer = Renderer_Collision()
 
     for i = 1, #self.players do
         self.players[i]:renderTo(renderer)

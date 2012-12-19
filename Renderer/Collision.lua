@@ -16,3 +16,7 @@ end
 function Renderer_Collision:renderCharacter_Enemy_Default(character)
     self:renderRenderable_Image(character)
 end
+
+function Renderer_Collision:renderScenery_Wall(scenery)
+    self:renderRenderable_Image(scenery)
+end

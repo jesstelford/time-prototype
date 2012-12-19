@@ -5,6 +5,11 @@ Vector = require "hump.vector"
 
 require "std"
 
+require "Collider"
+require "Collidable.Abstract"
+require "Collidable.Circle"
+require "Collidable.Box"
+
 require "Renderable.Abstract"
 require "Renderable.Image"
 
@@ -12,10 +17,8 @@ require "Renderer.Abstract"
 require "Renderer.Image"
 require "Renderer.Collision"
 
-require "Collider"
-require "Collidable.Abstract"
-require "Collidable.Circle"
-require "Collidable.Box"
+require "Scenery.Abstract"
+require "Scenery.Wall"
 
 require "Character.Abstract"
 require "Character.Player.Default"

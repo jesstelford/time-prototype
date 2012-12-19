@@ -3,7 +3,7 @@ Level_Abstract = Class {
 
     --- Constructor
     -- @param self A reference to the object being constructed
-    function(self, map, tiles, tileWidth, tileHeight)
+    function(self, tileWidth, tileHeight)
 
         -- Set the member variables for this instance
         self.map = {}
@@ -14,10 +14,6 @@ Level_Abstract = Class {
         self.players = {}
         self.drawOffset = Vector(10,10)
         self.currentPlayerIndex = nil
-
-        -- Operate on passed in parameters
-        self:setMap(map);
-        self:setTiles(tiles);
 
         self.tileWidth = tileWidth
         self.tileHeight = tileHeight
@@ -30,6 +26,7 @@ Level_Abstract.TERRAIN_PASSABLE = 0
 Level_Abstract.TERRAIN_BLOCKED = 1
 
 Level_Abstract.TILE_NONE = nil
+Level_Abstract.TILE_WALL = 1
 
 -- public member functions
 --- Check if the given coordinate is within the boundaries of the level's map
@@ -66,12 +63,17 @@ function Level_Abstract:setMap(map)
 
     -- deep copy of the map
     self.map = tree.clone(map)
+    self:setMapDimensionsFromTableSize(self.map)
 
-    self.mapHeight = #self.map
+end
+
+function Level_Abstract:setMapDimensionsFromTableSize(table)
+
+    self.mapHeight = #table
     self.mapWidth = nil
 
     for y = 1, self.mapHeight do
-        if self.mapWidth == nil or #self.map[y] < self.mapWidth then
+        if self.mapWidth == nil or #table[y] < self.mapWidth then
             self.mapWidth = #self.map[y]
         end
     end
@@ -82,9 +84,17 @@ end
 -- @param tileWidth (int) the pixel width of each tile
 -- @param tileHeight (int) the pixel height of each tile
 function Level_Abstract:setTiles(tiles, tileWidth, tileHeight)
-    self.tiles = tree.clone(tiles)
+
+    self:setMapDimensionsFromTableSize(tiles)
+
     self.tileWidth = tileWidth
     self.tileHeight = tileHeight
+
+    for y = 1, self.mapWidth do
+        for x = 1, self.mapHeight do
+            self:setTileValue(x, y, tiles[y][x])
+        end
+    end
 end
 
 --- Set a value to the Level's map at the given coordinates

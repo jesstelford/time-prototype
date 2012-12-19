@@ -8,11 +8,14 @@ Level_1 = Class {
     -- @param image (Image) The image to render
     function(self)
 
+        Level_Abstract.construct(self, 20, 20)
+
+        self:setTileTypeImage(Level_Abstract.TILE_WALL, love.graphics.newImage('media/images/wall.png'))
+
         -- Note that these values equate to: 
         -- Level_Abstract.TERRAIN_PASSABLE
         -- Level_Abstract.TERRAIN_BLOCKED
-        Level_Abstract.construct(
-            self,
+        self:setMap(
             {
                 {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
                 {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
@@ -40,8 +43,13 @@ Level_1 = Class {
                 {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
                 {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
                 {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
-            },
-            {   -- Note that these values equate to the tiles types set below
+            }
+        )
+
+            -- Note that these values equate to: 
+            -- Level_Abstract.TILE_..
+        self:setTiles(
+            {
                 {1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,1},
                 {1,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,1},
                 {1,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,1},
@@ -72,8 +80,6 @@ Level_1 = Class {
             20,
             20
         )
-
-        self:setTileTypeImage(1, love.graphics.newImage('media/images/wall.png'))
 
         self:addPlayer(
             Character_Player_Default(

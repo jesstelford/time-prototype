@@ -203,35 +203,30 @@ function Level_Abstract:_renderTiles(renderer)
 end
 
 function Level_Abstract:drawCollisionDebug()
-
-    self:_renderTiles(Renderer_Collision())
     renderer = Renderer_Collision()
-
-    for i = 1, #self.players do
-        self.players[i]:renderTo(renderer)
-    end
+    self:_renderTiles(renderer)
+    self:_renderRenderableImageTable(self.players, renderer)
 end
 
 function Level_Abstract:drawEnemies()
     renderer = Renderer_Image()
-    for i = 1, #self.enemies do
-        self.enemies[i]:updateRenderData()
-        self.enemies[i]:renderTo(renderer)
-    end
+    self:_renderRenderableImageTable(self.enemies, renderer)
 end
 
 function Level_Abstract:drawObstacles()
-    for i = 1, #self.obstacles do
-        self.obstacles[i]:updateRenderData()
-        self.obstacles[i]:draw()
-    end
+    renderer = Renderer_Image()
+    self:_renderRenderableImageTable(self.obstacles, renderer)
 end
 
 function Level_Abstract:drawPlayers()
     renderer = Renderer_Image()
-    for i = 1, #self.players do
-        self.players[i]:updateRenderData()
-        self.players[i]:renderTo(renderer)
+    self:_renderRenderableImageTable(self.players, renderer)
+end
+
+function Level_Abstract:_renderRenderableImageTable(table, renderer)
+    for i = 1, #table do
+        table[i]:updateRenderData()
+        table[i]:renderTo(renderer)
     end
 end
 

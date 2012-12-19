@@ -5,7 +5,9 @@ Vector = require "hump.vector"
 
 require "std"
 
-require "Renderable"
+require "Renderable.Abstract"
+require "Renderable.Image"
+
 require "Renderer.Abstract"
 require "Renderer.Image"
 require "Renderer.Collision"

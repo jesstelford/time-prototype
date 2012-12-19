@@ -1,7 +1,7 @@
 --- Renderable class implementing Visitor Pattern
-Renderable = Class {}
+Renderable_Abstract = Class {}
 
-function Renderable:renderTo(renderer)
+function Renderable_Abstract:renderTo(renderer)
     -- must be of type Collidable_Abstract to collide with
     assert(renderer:is_a(Renderer_Abstract), 'Can only render to a renderer')
 

@@ -196,12 +196,14 @@ end
 function Level_Abstract:drawEnemies()
     renderer = Renderer_Image()
     for i = 1, #self.enemies do
+        self.enemies[i]:updateRenderData()
         self.enemies[i]:renderTo(renderer)
     end
 end
 
 function Level_Abstract:drawObstacles()
     for i = 1, #self.obstacles do
+        self.obstacles[i]:updateRenderData()
         self.obstacles[i]:draw()
     end
 end
@@ -209,6 +211,7 @@ end
 function Level_Abstract:drawPlayers()
     renderer = Renderer_Image()
     for i = 1, #self.players do
+        self.players[i]:updateRenderData()
         self.players[i]:renderTo(renderer)
     end
 end

@@ -9,6 +9,5 @@ function Renderer_Image:renderCharacter_Player_Default(character)
 end
 
 function Renderer_Image:renderCharacter_Enemy_Default(character)
-    local position = character:getRenderPosition()
-    love.graphics.draw(character:getImage(), position.x, position.y)
+    self:renderCharacter_Player_Default(character)
 end

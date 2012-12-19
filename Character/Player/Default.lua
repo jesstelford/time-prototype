@@ -7,9 +7,13 @@ Character_Player_Default = Class {
     --- Constructor
     -- @param self A reference to the object being constructed
     -- @param image (Image) The image to render
-    function(self, image, xPosition, yPosition)
-        Character_Abstract.construct(self, image)
-        Collidable_Box.construct(self, xPosition, yPosition, image:getWidth(), image:getHeight())
+    -- @param positionX The Starting X Position of the character
+    -- @param positionY The Starting Y Position of the character
+    function(self, image, positionX, positionY)
+
+        -- Call parent constructors
+        Character_Abstract.construct(self, image, image:getWidth() / 2, image:getHeight() / 2)
+        Collidable_Box.construct(self, positionX, positionY, image:getWidth(), image:getHeight())
 
         --- @var Store all the registered callbacks for later de-registering
         self.inputCallbacks = {}

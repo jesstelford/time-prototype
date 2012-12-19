@@ -3,6 +3,7 @@
 Character_Abstract = Class {
 
     name = 'Character_Abstract',
+    inherits = Renderable,
 
     --- Constructor
     -- @param self A reference to the object being constructed
@@ -25,7 +26,10 @@ function Character_Abstract:moveY(dist)
     self.position.y = self.position.y + dist;
 end
 
---- Draw the character on the screen based on current position
-function Character_Abstract:draw()
-    love.graphics.draw(self.image, self.position.x - (self.image:getWidth() / 2), self.position.y - (self.image:getHeight() / 2))
+function Character_Abstract:getImage()
+    return self.image
+end
+
+function Character_Abstract:getRenderPosition()
+    return Vector(self.position.x - (self.image:getWidth() / 2), self.position.y - (self.image:getHeight() / 2))
 end

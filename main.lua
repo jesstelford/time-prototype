@@ -5,6 +5,10 @@ Vector = require "hump.vector"
 
 require "std"
 
+require "Renderable"
+require "Renderer.Abstract"
+require "Renderer.Image"
+
 require "Collider"
 require "Collidable.Abstract"
 require "Collidable.Circle"

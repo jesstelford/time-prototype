@@ -12,7 +12,7 @@ Character_Player_Default = Class {
     function(self, image, positionX, positionY)
 
         -- Call parent constructors
-        Character_Abstract.construct(self, image, image:getWidth() / 2, image:getHeight() / 2)
+        Character_Abstract.construct(self, image, -image:getWidth() / 2, -image:getHeight() / 2)
         Collidable_Box.construct(self, positionX, positionY, image:getWidth(), image:getHeight())
 
         --- @var Store all the registered callbacks for later de-registering

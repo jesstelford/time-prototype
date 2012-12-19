@@ -9,7 +9,7 @@ Character_Abstract = Class {
     -- @param self A reference to the object being constructed
     function(self, image, renderOffsetX, renderOffsetY)
         self.position = Vector(0,0)
-        Renderable_Image.construct(self, image, -image:getWidth() / 2, -image:getHeight() / 2)
+        Renderable_Image.construct(self, image, renderOffsetX, renderOffsetY)
     end
 }
 

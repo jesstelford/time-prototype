@@ -15,8 +15,6 @@ function State_Game:update(dt)
 
     local dist = (State_Game.speed * dt)
 
-    local player = levelOne:getCurrentPlayer()
-
     if love.keyboard.isDown("right") then
         Signals.emit('key-right', dist)
     elseif love.keyboard.isDown("left") then

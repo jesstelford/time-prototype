@@ -10,7 +10,6 @@ Level_Abstract = Class {
         self.tiles = {}
         self.tileImages = {}
         self.enemies = {}
-        self.obstacles = {}
         self.players = {}
         self.drawOffset = Vector(10,10)
         self.currentPlayerIndex = nil
@@ -185,7 +184,6 @@ function Level_Abstract:draw()
     self:_renderTiles(renderer)
 
     self:_renderRenderableImageTable(self.enemies, renderer)
-    self:_renderRenderableImageTable(self.obstacles, renderer)
     self:_renderRenderableImageTable(self.players, renderer)
 
     self:drawCollisionDebug()
@@ -217,6 +215,7 @@ function Level_Abstract:_renderRenderableImageTable(table, renderer)
 end
 
 function Level_Abstract:addEnemy(enemy)
+    assert(enemy.is_a(Character_Enemy_Default), 'Must be an instance of Character_Enemy_Default')
     table.insert(self.enemies, enemy)
 end
 
@@ -224,15 +223,8 @@ function Level_Abstract:getEnemies()
     return self.enemies
 end
 
-function Level_Abstract:addObstacle(obstacle)
-    table.insert(self.obstacles, obstacle)
-end
-
-function Level_Abstract:getObstacles()
-    return self.obstacles
-end
-
 function Level_Abstract:addPlayer(player)
+    assert(player.is_a(Character_Player_Default), 'Must be an instance of Character_Player_Default')
 
     table.insert(self.players, player)
 

@@ -1,3 +1,6 @@
+Scenery_Abstract = {} -- avoid circular dependancies
+Renderable_Image = Renderable_Image or require "Renderable.Image"
+
 Scenery_Abstract = Class {
 
     name = 'Scenery_Abstract',
@@ -11,3 +14,5 @@ Scenery_Abstract = Class {
         self.renderPosition = Vector(positionX, positionY)
     end
 }
+
+return Scenery_Abstract

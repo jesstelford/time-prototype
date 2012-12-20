@@ -1,3 +1,6 @@
+Renderer_Image = {} -- avoid circular dependancies
+Renderer_Abstract = Renderer_Abstract or require "Renderer.Abstract"
+
 --- Renderable class implementing Visitor Pattern
 Renderer_Image = Class {
     inherits = Renderer_Abstract
@@ -19,3 +22,5 @@ end
 function Renderer_Image:renderScenery_Wall(scenery)
     self:renderRenderable_Image(scenery)
 end
+
+return Renderer_Image

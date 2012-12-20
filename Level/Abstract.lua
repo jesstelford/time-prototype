@@ -1,3 +1,10 @@
+Level_Abstract = {} -- avoid circular dependancies
+Renderer_Image = Renderer_Image or require "Renderer.Image"
+Renderer_Collision = Renderer_Collision or require "Renderer.Collision"
+Character_Player_Default = Character_Player_Default or require "Character.Player.Default"
+Character_Enemy_Default = Character_Enemy_Default or require "Character.Enemy.Default"
+Scenery_Wall = Scenery_Wall or require "Scenery.Wall"
+
 -- Declare a new class called Level_Abstract
 Level_Abstract = Class {
 
@@ -215,7 +222,7 @@ function Level_Abstract:_renderRenderableImageTable(table, renderer)
 end
 
 function Level_Abstract:addEnemy(enemy)
-    assert(enemy.is_a(Character_Enemy_Default), 'Must be an instance of Character_Enemy_Default')
+    assert(enemy:is_a(Character_Enemy_Default), 'Must be an instance of Character_Enemy_Default')
     table.insert(self.enemies, enemy)
 end
 
@@ -224,7 +231,7 @@ function Level_Abstract:getEnemies()
 end
 
 function Level_Abstract:addPlayer(player)
-    assert(player.is_a(Character_Player_Default), 'Must be an instance of Character_Player_Default')
+    assert(player:is_a(Character_Player_Default), 'Must be an instance of Character_Player_Default')
 
     table.insert(self.players, player)
 
@@ -247,3 +254,5 @@ function Level_Abstract:getCurrentPlayer()
 
     return self.players[self.currentPlayerIndex]
 end
+
+return Level_Abstract

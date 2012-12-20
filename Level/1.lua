@@ -1,4 +1,8 @@
--- Declare a new class called Level_1
+Level_1 = {} -- avoid circular dependancies
+Level_Abstract = Level_Abstract or require "Level.Abstract"
+Character_Player_Default = Character_Player_Default or require "Character.Player.Default"
+Character_Enemy_Default = Character_Enemy_Default or require "Character.Enemy.Default"
+
 Level_1 = Class {
 
     inherits = Level_Abstract,
@@ -100,3 +104,5 @@ Level_1 = Class {
 
     end
 }
+
+return Level_1

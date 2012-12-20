@@ -1,3 +1,6 @@
+Collidable_Box = {} -- avoid circular dependancies
+Collidable_Abstract = Collidable_Abstract or require "Collidable.Abstract"
+
 --- Collidable class implementing Visitor Pattern
 Collidable_Box = Class {
 
@@ -19,3 +22,5 @@ end
 function Collidable_Box:getCollidableType()
     return 'Box'
 end
+
+return Collidable_Box

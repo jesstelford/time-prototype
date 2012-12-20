@@ -1,3 +1,4 @@
+package.path = love.filesystem.getWorkingDirectory( ) .. '/?.lua;' .. package.path
 Class = require "hump.class"
 Gamestate = require "hump.gamestate"
 Signals = require "hump.signal"
@@ -5,30 +6,7 @@ Vector = require "hump.vector"
 
 require "std"
 
-require "Collider"
-require "Collidable.Abstract"
-require "Collidable.Circle"
-require "Collidable.Box"
-
-require "Renderable.Abstract"
-require "Renderable.Image"
-
-require "Renderer.Abstract"
-require "Renderer.Image"
-require "Renderer.Collision"
-
-require "Scenery.Abstract"
-require "Scenery.Wall"
-
-require "Character.Abstract"
-require "Character.Player.Default"
-require "Character.Enemy.Default"
-
-require "Level.Abstract"
-require "Level.1"
-
 require "State.Load"
-require "State.Game"
 
 -- Called once before anything
 function love.load()

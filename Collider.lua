@@ -1,3 +1,7 @@
+Collider = {} -- avoid circular dependancies
+Collidable_Circle = Collidable_Circle or require "Collidable.Circle"
+Collidable_Box = Collidable_Box or require "Collidable.Box"
+
 --- Collidable class implementing Visitor Pattern
 Collider = Class {
     name = 'Collider'
@@ -65,3 +69,5 @@ function Collider:BoxToBox(from, to)
 
     return nil
 end
+
+return Collider

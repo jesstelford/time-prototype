@@ -1,3 +1,7 @@
+Character_Player_Default = {} -- avoid circular dependancies
+Character_Abstract = Character_Abstract or require "Character.Abstract"
+Collidable_Box = Collidable_Box or require "Collidable.Box"
+
 -- Declare a new class called Level_1
 Character_Player_Default = Class {
 
@@ -47,3 +51,5 @@ function Character_Player_Default:registerForInput()
     table.insert(self.inputCallbacks, downCallback)
 
 end
+
+return Character_Player_Default

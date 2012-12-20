@@ -1,3 +1,6 @@
+Renderable_Abstract = {} -- avoid circular dependancies
+Renderer_Abstract = Renderer_Abstract or require "Renderer.Abstract"
+
 --- Renderable class implementing Visitor Pattern
 Renderable_Abstract = Class {}
 
@@ -16,3 +19,5 @@ function Renderable_Abstract:renderTo(renderer)
     end
 
 end
+
+return Renderable_Abstract

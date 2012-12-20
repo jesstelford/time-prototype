@@ -1,3 +1,6 @@
+Renderable_Image = {} -- avoid circular dependancies
+Renderable_Abstract = Renderable_Abstract or require "Renderable.Abstract"
+
 Renderable_Image = Class {
     inherits = Renderable_Abstract,
 
@@ -22,3 +25,5 @@ end
 function Renderable_Image:getRenderPosition()
     return Vector(self.renderPosition.x + self.renderOffset.x, self.renderPosition.y + self.renderOffset.y)
 end
+
+return Renderable_Image

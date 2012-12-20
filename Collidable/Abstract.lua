@@ -1,3 +1,6 @@
+Collidable_Abstract = {} -- avoid circular dependancies
+Collider = Collider or require "Collider"
+
 --- Collidable class implementing Visitor Pattern
 Collidable_Abstract = Class {
     name = 'Collidable_Abstract',
@@ -38,3 +41,5 @@ end
 function Collidable_Abstract:getCollidableType()
     return 'Abstract'
 end
+
+return Collidable_Abstract

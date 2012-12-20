@@ -1,3 +1,6 @@
+Character_Abstract = {} -- avoid circular dependancies
+Renderable_Image = Renderable_Image or require "Renderable.Image"
+
 -- Abstract character class containing basic functionality for all characters
 -- in the game (enemies, players, etc)
 Character_Abstract = Class {
@@ -31,3 +34,5 @@ function Character_Abstract:updateRenderData()
     self.renderPosition.x = self.position.x
     self.renderPosition.y = self.position.y
 end
+
+return Character_Abstract

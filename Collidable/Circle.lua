@@ -1,3 +1,6 @@
+Collidable_Circle = {} -- avoid circular dependancies
+Collidable_Abstract = Collidable_Abstract or require "Collidable.Abstract"
+
 --- Collidable class implementing Visitor Pattern
 Collidable_Circle = Class {
     name = 'Collidable_Circle',
@@ -17,3 +20,5 @@ end
 function Collidable_Circle:getCollidableType()
     return 'Circle'
 end
+
+return Collidable_Circle

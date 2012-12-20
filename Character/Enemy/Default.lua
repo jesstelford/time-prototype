@@ -1,3 +1,7 @@
+Character_Enemy_Default = {} -- avoid circular dependancies
+Character_Abstract = Character_Abstract or require "Character.Abstract"
+Collidable_Box = Collidable_Box or require "Collidable.Box"
+
 Character_Enemy_Default = Class {
 
     inherits = {Character_Abstract, Collidable_Box},
@@ -11,3 +15,5 @@ Character_Enemy_Default = Class {
         Collidable_Box.construct(self, xPosition, yPosition, image:getWidth(), image:getHeight())
     end
 }
+
+return Character_Enemy_Default

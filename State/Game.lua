@@ -34,3 +34,5 @@ function State_Game:draw()
     levelOne:draw()
 
 end
+
+return State_Game

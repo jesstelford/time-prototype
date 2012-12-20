@@ -1,3 +1,6 @@
+Renderer_Collision = {} -- avoid circular dependancies
+Renderer_Abstract = Renderer_Abstract or require "Renderer.Abstract"
+
 --- Renderable class implementing Visitor Pattern
 Renderer_Collision = Class {
     inherits = Renderer_Abstract
@@ -20,3 +23,5 @@ end
 function Renderer_Collision:renderScenery_Wall(scenery)
     self:renderRenderable_Image(scenery)
 end
+
+return Renderer_Collision

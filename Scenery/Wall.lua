@@ -1,3 +1,7 @@
+Scenery_Wall = {} -- avoid circular dependancies
+Scenery_Abstract = Scenery_Abstract or require "Scenery.Abstract"
+Collidable_Box = Collidable_Box or require "Collidable.Box"
+
 Scenery_Wall = Class {
 
     name = 'Scenery_Wall',
@@ -9,4 +13,4 @@ Scenery_Wall = Class {
     end
 }
 
-
+return Scenery_Wall

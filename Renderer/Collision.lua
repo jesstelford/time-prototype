@@ -7,9 +7,24 @@ Renderer_Collision = Class {
 }
 
 function Renderer_Collision:renderRenderable_Image(collidable)
-    local colSize = collidable:getCollisionSize()
+
+    local colHalfSize = collidable:getCollisionSize() / 2
     local colPos = collidable:getPosition()
-    love.graphics.rectangle('line', colPos.x - (colSize.x / 2), colPos.y - (colSize.y / 2), colSize.x, colSize.y)
+
+    if collidable:isColliding() then
+
+        love.graphics.setColor(255, 255, 0)
+        for _, normal in pairs(collidable:getCollisionNormals()) do
+            normal = normal * 10
+            love.graphics.line(colPos.x, colPos.y, colPos.x + normal.x, colPos.y + normal.y)
+        end
+
+        love.graphics.setColor(255, 0, 0)
+    else
+        love.graphics.setColor(255, 255, 255)
+    end
+
+    love.graphics.rectangle('line', colPos.x - colHalfSize.x, colPos.y - colHalfSize.y, colHalfSize.x * 2, colHalfSize.y * 2)
 end
 
 function Renderer_Collision:renderCharacter_Player_Default(character)

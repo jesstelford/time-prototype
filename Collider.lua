@@ -58,16 +58,17 @@ function Collider:BoxToBox(from, to)
     sizeFrom = from:getCollisionSize()
     sizeTo = to:getCollisionSize()
 
-    if (
-        (math.abs(centerFrom.x - centerTo.x) * 2 < (sizeFrom.x + sizeTo.x))
-        and (math.abs(centerFrom.y - centerTo.y) * 2 < (sizeFrom.y + sizeTo.y))
-    ) then
-        -- collision! :D
-        -- TODO: Return some form of collision normal
-        return Vector(0,0)
-    end
+    distX = (centerTo.x - centerFrom.x)
+    distY = (centerTo.y - centerFrom.y)
 
-    return nil
+    -- early out for no collision possible
+    if math.abs(distX) * 2 > (sizeFrom.x + sizeTo.x) then return nil end
+    if math.abs(distY) * 2 > (sizeFrom.y + sizeTo.y) then return nil end
+
+    -- collision! :D
+    normal = Vector(distX, distY)
+    normal:normalize_inplace()
+    return normal
 end
 
 return Collider

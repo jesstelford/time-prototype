@@ -169,13 +169,13 @@ end
 function Level_Abstract:update()
 
     local player = self:getCurrentPlayer()
+    player:resetCollisionState()
+
     for y = 1, self.mapHeight do
         for x = 1, self.mapWidth do
-            if not self:isMapPassable(x, y) then
-                local xCenter = self.tileWidth * (x - 1) + self.drawOffset.x
-                local yCenter = self.tileHeight * (y - 1) + self.drawOffset.y
-                local wallCollider = Collidable_Box(xCenter, yCenter, self.tileWidth, self.tileHeight)
-                normal = wallCollider:collideWith(player)
+            if self.tiles[y][x] ~= nil then
+                self.tiles[y][x]:resetCollisionState()
+                normal = self.tiles[y][x]:collideWith(player)
                 if normal ~= nil then
                     print(normal)
                 end

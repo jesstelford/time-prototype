@@ -8,6 +8,7 @@ Collidable_Abstract = Class {
     -- @param self A reference to the object being constructed
     function(self, xPosition, yPosition)
         self.position = Vector(xPosition, yPosition)
+        self.collisionNormals = {}
     end
 }
 
@@ -22,16 +23,33 @@ function Collidable_Abstract:collideWith(collidable)
 
     funcName = fromType .. 'To' .. toType
     if type(collider[funcName]) == 'function' then
-        return collider[funcName](collider, self, collidable)
+        collisionNormal = collider[funcName](collider, self, collidable)
+        if collisionNormal ~= nil then
+            self:addCollisionNormal(collisionNormal)
+            collidable:addCollisionNormal(collisionNormal * -1)
+        end
     else
+
         funcName = toType .. 'To' .. fromType
+
         if type(collider[funcName]) == 'function' then
-            return collider[funcName](collider, collidable, self)
+
+            collidable.collisionNormal = collider[funcName](collider, collidable, self)
+
+            if collisionNormal ~= nil then
+                self:addCollisionNormal(collisionNormal * -1)
+                collidable:addCollisionNormal(collisionNormal)
+            end
         else
-            return collider:default(self, collidable)
+            self.collisionNormal = collider:default(self, collidable)
+            if collisionNormal ~= nil then
+                self:addCollisionNormal(collisionNormal)
+                collidable:addCollisionNormal(collisionNormal * -1)
+            end
         end
     end
 
+    return self.collisionNormal
 end
 
 function Collidable_Abstract:getPosition()
@@ -40,6 +58,22 @@ end
 
 function Collidable_Abstract:getCollidableType()
     return 'Abstract'
+end
+
+function Collidable_Abstract:addCollisionNormal(normal)
+    table.insert(self.collisionNormals, normal)
+end
+
+function Collidable_Abstract:getCollisionNormals()
+    return self.collisionNormals
+end
+
+function Collidable_Abstract:isColliding()
+    return #self.collisionNormals > 0
+end
+
+function Collidable_Abstract:resetCollisionState()
+    self.collisionNormals = {}
 end
 
 return Collidable_Abstract

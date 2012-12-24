@@ -11,7 +11,7 @@ Scenery_Abstract = Class {
     function(self, image, positionX, positionY, renderOffsetX, renderOffsetY)
         Renderable_Image.construct(self, image, renderOffsetX, renderOffsetY)
         self.position = Vector(positionX, positionY)
-        self.renderPosition = Vector(positionX, positionY)
+        self.renderPosition = tree.clone(self.position)
     end
 }
 

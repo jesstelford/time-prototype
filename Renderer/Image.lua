@@ -8,6 +8,7 @@ Renderer_Image = Class {
 
 function Renderer_Image:renderRenderable_Image(renderable)
     local position = renderable:getRenderPosition()
+    love.graphics.setColor(255,255,255)
     love.graphics.draw(renderable:getImage(), position.x, position.y)
 end
 

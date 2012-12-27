@@ -3,6 +3,7 @@ Class = require "hump.class"
 Gamestate = require "hump.gamestate"
 Signals = require "hump.signal"
 Vector = require "hump.vector"
+HardonCollider = require "hardoncollider"
 
 require "std"
 

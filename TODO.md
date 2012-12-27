@@ -121,6 +121,10 @@ store something that is temporally compressed:
 Then the value of `position.x` and `angle` are read from frame 1's data,
 rather than stored with each frame.
 
+#### Disadvantages
+
+##### Removed properties
+
 This could have drawbacks such as when there is data that should simply be
 removed from the object. Example:
 
@@ -136,7 +140,9 @@ removed from the object. Example:
     }
 
 Where colliding is no longer set in frame 2, should it inherit its value
-from from 1, or should the value no longer exist in frame 2? A solution could
+from from 1, or should the value no longer exist in frame 2?
+
+A solution could
 be to store which values are persistant in a 'headers' area of the compressed
 data. Another solution could be to store the fact that the value has been
 unset entirely in a particular frame, such as:
@@ -158,10 +164,14 @@ unset entirely in a particular frame, such as:
         -- ...
     }
 
+##### Rewinding
+
 Another disadvantage is that it makes rewinding harder. Using the original 3
 frame movement example, how do we know the `position.x` value in frame 3 then
 again in frame 2, since it has not been declaired yet in any of the known
-frames. A solution would be to scan back until a suitable value is found.
+frames.
+
+A solution would be to scan back until a suitable value is found.
 Another solution would be to store the unchanging value at either end of the
 change, for example:
 
@@ -207,7 +217,80 @@ the value is known when frame 2 is reached.
 Have to be able to play back the movements even though the environment may
 have changed around where the movements are taking place.
 
-## Multiple replays
+### All states as 'inputs'
+
+Will need a 3-level heirarchy of 'state' an item can be in (in order of
+decreasing priority):
+
+ * Player controlled
+ * Computed
+ * Replay (aka: Forced)
+
+The state system would have to do multiple passes, one for each level, where
+the possible state of an object is determined based on the previous state of
+all other objects.
+
+For example;
+
+Say we have an enemy object which begins in a static position with
+coordinate `(100, 100)`. The player is currently out of range.
+
+Input (like moving toward the enemy) puts the player within range of ... TBC
+
+#### All players are interactable
+
+When an enemy is computed, it will always try to attack any player (regardless
+of time frame it is in), as would be expected. However, any attacks will fail
+to kill the player. All attacks will continue as if the enemy can kill the
+player.
+
+When the player eventually kills the enemy, it must be before the enemy ever
+tries to kill any version of the player, as it means the player will die at
+some point before he can go back in time to kill the enemy. This adds the
+puzzle element that the player has to have the foresight to avoid the enemies
+/ draw them away / shield themselves until future them can come back to kill
+it.
+
+Also, this opens up the possibility to have enemies that aren't one-hit kills.
+Which means that we'd need to have an extra solver whereby any 'past' self
+that takes damage has that damage passed on to future selves, and if any of
+the future selves take too much damage, then Fail Condition is triggered as
+the player is dead at some point due to attacks from the enemy.
+
+What about collisions?
+
+Hmm... Two possibilities: No collision, or path finding.
+
+No Collision means that at some point the player could get in a situation
+where they should have collided with the enemy, but instead walked straight
+through it like it wasn't there.
+
+Path finding would be applied to the player that is being replayed and means
+that the replay may not be identical each time, which poses potential issues
+with timings and etc... Or would it? If we know that the player took 15
+seconds to get to the machine, then goes back in time, and as a result the
+original player now bumps into an enemy and has to path find around it,
+resulting in the level taking 17 seconds to replay, the second player will
+still have gone back in time to the start of the level regardless. So, it
+wouldn't effect that player at all. Then, a 3rd player goes back in time which
+causes the collision to no longer happen, so the 1st player should make it to
+the machine in 15 seconds again, following the original path.
+
+In summary: Only need to record the player's actions - everything else is
+computed with the potential of a replay to be different between multiple runs
+depending on how the future versions of the player interact with past
+versions.
+
+A side effect of this is that the player can interact with past versions of
+himself.
+
+This opens up another puzzle mechanic where self interactions must be limited
+for fear of sending yourself crazy (and hence dying, or going off course?).
+However, in some puzzles the interaction might be necessary to pass a past
+self an item that would then be used automatically (opening a door with a key,
+for example)
+
+### Multiple replays
 
 Must be able to replay the same recording multiple times simultaneously
 

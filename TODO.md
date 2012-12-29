@@ -1,3 +1,223 @@
+# Coding style
+## Composition over inheritance
+
+Start taking advantage of Lua's Prototypal structure. Instead of using an OOP
+Class based system, use a prototypal composition based system for building up
+objects.
+
+To do so, we could go one of two ways:
+
+### Completely Prototype
+
+Where we do something like:
+
+    Renderable = {}
+    
+    function Renderable:init(image)
+    	self.image = image
+    end
+    
+    Positionable = {}
+    
+    function Positionable:init(xpos, ypos)
+    	self.xpos = xpos
+    	self.ypos = ypos
+    end
+    
+    Player = Positionable
+    Player.addParent(Renderable) -- TODO: How do I do this so the Player has multiple prototypal parents..?
+
+#### Caveats
+
+Is it actually possible to have multiple parental prototypes?
+
+ * What about naming conflicts?
+ * What about metatables? Are they combined? Should they be combined?
+
+### Copy-on-instantiate
+
+(What is this actually called? Classes without Inheritance?)
+
+This takes some parts from Prototyping and some from OOP, but keeps every
+instantiation as a seperate entity.
+
+    Renderable = {}
+    
+    function Renderable:init(image)
+    	self.image = image
+    end
+    
+    Positionable = {}
+    
+    function Positionable:init(xpos, ypos)
+    	self.xpos = xpos
+    	self.ypos = ypos
+    end
+
+    Class = {}
+
+    function Class:extend(table)
+    	for key, value in pairs(table)
+    		if type(value) == 'table' then
+    			self[key] = tree.clone(value)
+    		else
+    			self[key] = value
+    		end
+    	end
+    end
+    
+    Player = Class
+    Player.extend(Renderable)
+    Player.extend(Positionable)
+
+#### Extensions
+
+Allow onlt extending of certain objects using lua's pattern matching?
+
+    function Class:extend(table, patterns)
+    	for key, value in pairs(table)
+            	-- TODO: Probably a more efficient way to do this
+            	for _, pattern in pairs(patterns)
+            		if pattern.match(key) then -- TODO: Is this correct?
+            			if type(value) == 'table' then
+            				self[key] = tree.clone(value)
+            			else
+            				self[key] = value
+            			end
+
+            			break
+            		end
+            	end
+    	end
+    end
+
+
+#### Caveats
+
+ * What exactly does tree.clone() do?
+ * What about naming conflicts?
+ * What about metatables?
+
+## Module loading
+
+### Current system
+
+Instead of the current system of loading modules like:
+
+*foo.lua*
+
+    Foo = {} -- avoid circular dependancy
+    Bar = Bar or require "bar"
+
+    Foo = {
+    	bar: Bar
+    }
+
+    return Foo
+
+*bar.lua*
+
+    Bar = {} -- avoid circular dependancy
+    Foo = Foo or require "foo"
+
+    Bar = {
+    	foo: Foo
+    }
+
+    return Bar
+
+### Proposed System
+
+Something like RequireJS (or a port of RequireJS to Lua?):
+
+*main.lua*
+
+    Require = require "require"
+
+*my/foo.lua*
+
+    return Require(
+    	{ "my.bar" },
+    	function (My_Bar)
+    		local Foo = {
+    			bar: My_Bar
+    		}
+    		return Foo
+    	end
+    )
+
+*my/bar.lua*
+
+    return Require(
+    	{ "my.foo" },
+    	function (My_Foo)
+    		local Bar = {
+    			bar: My_Foo
+    		}
+    		return Bar
+    	end
+    )
+
+*require.lua*
+
+    --[[
+    Usage:
+
+        In file my/bar.lua:
+
+	return Require(
+	    { --[[ dependancies ]]- },
+	    function ( --[[ instantiated dependancies ]]--)
+	        local Module = -- whatever
+		return Module
+	    end
+	)
+
+    Note that this assumes a few things:
+     * Dependancies are passed in as an array of file names (in lua's 'dot' format)
+     * Instantiated Dependancies are passed in the same order the dependancies are defined
+     * The module will be returned from the load closure function
+
+    TODO: How to solve circular dependancies? Because this method will currently
+    pass a blank table as the dependancy to be used inside the load closure,
+    which is incorrect.
+
+    ]]--
+
+    local Require = {
+    	loaded: {}
+    }
+    
+    local function load(self, dependancies, load)
+    	-- TODO: Get the name of the file that is currently calling this load method, and store it in 'thisModule' below
+    	local thisModule = 'blah.zoo'
+    
+    	if not not self.loaded[thisModule] then
+    		return self.loaded[thisModule]
+    	end
+    
+    	self.loaded[thisModule] = {} -- Avoid circular dependancies
+    
+    	loadedDependancies = {}
+    
+    	for _, file in pairs(dependancies)
+    		if not self.loaded[file] then
+    			self.loaded[file] = require file
+    			table.insert(loadedDependancies, self.loaded[file])
+    		end
+    	end
+    
+    	self.loaded[thisModule] = load(unpack(loadedDependancies))
+    
+    	return self.loaded[thisModule]
+    end
+
+    -- TODO: I dont' think this is quite right, but the goal is to be able to call either Require.load(...) or just Require(...)
+    return metatable {
+    	Require,
+    	__call = load
+    }
+
 # Types of objects in the game
 ## Blockers
 

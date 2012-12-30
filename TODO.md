@@ -218,6 +218,71 @@ Something like RequireJS (or a port of RequireJS to Lua?):
     	__call = load
     }
 
+An extension could be...
+
+*require.lua*
+    
+local function load(self, dependancies, load)
+	-- TODO: Get the name of the file that is currently calling this load method, and store it in 'thisModule' below
+	local thisModule = 'blah.zoo'
+
+	if not not self.loaded[thisModule] then
+		return self.loaded[thisModule]
+	end
+
+	-- Only set a default for circular dependancies if there are any dependancies
+	if #dependancies > 0
+		self.loaded[thisModule] = {} -- Avoid circular dependancies
+	end
+
+	loadedDependancies = {}
+
+	for _, file in pairs(dependancies)
+
+		if not self.loaded[file] then
+			self.loaded[file] = require file
+			table.insert(loadedDependancies, self.loaded[file])
+		end
+	end
+	
+	loadedModule = load(unpack(loadedDependancies))
+
+
+	if #dependancies > 0 then
+		mt = {
+			__index: function(key)
+				return loadedModule[key]
+			end,
+			__indexSet: function(key, value)
+				loadedModule[key] = value
+			end,
+			-- etc
+		}
+
+		-- proxy all the module calls through this new meta table.
+		setmetatable(self.loaded[thisModule], mt)
+
+		--[[
+			TODO: What about any extra stuff already set on the meta
+			table as returned from the load method? Can we loop over
+			the existing metatable keys and copy them? Like:
+
+			for key, value in pairs(loadedModule)
+				if type(key) ~= 'function' then
+					mt[key] = value
+				end
+			end
+
+		]]--
+	else
+		-- if no dependancies, then just store the module directly as it can't have possibly been passed to any modules already
+		self.loaded[thisModule] = loadedModule
+	end
+
+
+	return self.loaded[thisModule]
+end
+
 # Types of objects in the game
 ## Blockers
 

@@ -1,3 +1,7 @@
+# Unit Testing
+
+[Busted, Elegant Lua unit testing](http://olivinelabs.com/busted/)
+
 # Coding style
 ## Composition over inheritance
 
@@ -7,7 +11,7 @@ objects.
 
 To do so, we could go one of two ways:
 
-### Completely Prototype
+### Multiple Prototypes
 
 Where we do something like:
 
@@ -33,6 +37,101 @@ Is it actually possible to have multiple parental prototypes?
 
  * What about naming conflicts?
  * What about metatables? Are they combined? Should they be combined?
+
+### Extendable Modules & Sub Modules
+
+Using the [Javascript Module Pattern](http://www.adequatelygood.com/2010/3/JavaScript-Module-Pattern-In-Depth),
+we can compose a module from a series of other modules.
+
+*foo.lua*
+
+    return (function(parent, submoduleName)
+    
+    	-- ensure there's a default object passed in
+    	if not not parent
+    		parent = {}
+    	end
+    
+    	-- ability to optionally set this as a sub module
+    	if not not submoduleName then
+    		parent[submoduleName] = {}
+    		me = parent[submoduleName]
+    	else
+    		me = parent
+    	end
+    
+    	local privateFunction = function() end
+    
+    	me.exportedVar = 123
+    	me.exportedFunction = function() end
+    	-- ... other capabilities
+    
+    	-- return the object passed in
+    	return parent
+    end)
+
+*main.lua*
+
+    local player = {}
+    player.module = require "foo"({})
+
+Then to expand on setting exported functions, you can do:
+
+*bar.lua*
+
+    return (function(me)
+    	-- ensure there's a default object passed in
+    	if not not parent
+    		parent = {}
+    	end
+    
+    	-- ability to optionally set this as a sub module
+    	if not not submoduleName then
+    		parent[submoduleName] = {}
+    		me = parent[submoduleName]
+    	else
+    		me = parent
+    	end
+    
+    	local old_exportedFunction = me.exportedFunction or function() end
+    	
+    	me.exportedFunction = function()
+    		old_exportedFunction();
+    	end
+    	-- ... other capabilities
+    
+    	return parent
+    end)
+
+#### Caveats
+
+ * Requires ensuring modules don't have variable naming conflicts. For example,
+   instead of both a Renderable and PhysicObject using `position`, it should be
+   `renderPosition` and `physicsPosition` respectively. This can be solved by
+   using sub modules
+ * Too verbose trying to set the parent, etc, for each module... But, that could
+   be fixed easily by creating a module wrapper, like so:
+
+*module.lua*
+
+    return (function(parent, submoduleName = nil, moduleDefinition)
+    	
+    	-- ensure there's a default object passed in
+    	if not not parent
+    		parent = {}
+    	end
+    
+    	-- ability to optionally set this as a sub module
+    	if not not submoduleName then
+    		parent[submoduleName] = {}
+    		local me = parent[submoduleName]
+    	else
+    		local me = parent
+    	end
+    
+    	return moduleDefinition(me)
+    
+    end)
 
 ### Copy-on-instantiate
 
@@ -72,7 +171,7 @@ instantiation as a seperate entity.
 
 #### Extensions
 
-Allow onlt extending of certain objects using lua's pattern matching?
+Allow only extending of certain objects using lua's pattern matching?
 
     function Class:extend(table, patterns)
     	for key, value in pairs(table)

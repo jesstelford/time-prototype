@@ -1,4 +1,5 @@
 Level_Abstract = {} -- avoid circular dependancies
+Collider = Collider or require "Collider"
 Renderer_Image = Renderer_Image or require "Renderer.Image"
 Renderer_Collision = Renderer_Collision or require "Renderer.Collision"
 Character_Player_Default = Character_Player_Default or require "Character.Player.Default"
@@ -20,6 +21,7 @@ Level_Abstract = Class {
         self.players = {}
         self.drawOffset = Vector(10,10)
         self.currentPlayerIndex = nil
+        self.collider = Collider()
 
         self.tileWidth = tileWidth
         self.tileHeight = tileHeight
@@ -153,10 +155,15 @@ function Level_Abstract:setTileValue(x, y, value)
         if value == Level_Abstract.TILE_WALL then
 
             -- set the tile
-            self.tiles[y][x] = Scenery_Wall(self.tileImages[value], drawX, drawY)
+            local tile = Scenery_Wall(self.tileImages[value], drawX, drawY)
+            self.tiles[y][x] = tile
+            self.collider:addShape(tile)
+            self.collider:setPassive(tile)
+            self.collider:addToGroup('walls', tile)
 
-        -- elseif tiles[y][x] == Level_Abstract.TILE_SOMETHING then
+        -- elseif value == Level_Abstract.TILE_SOMETHING then
         --     self.tiles[y][x] = Scenery_Something()
+        --     -- ... etc
         end
 
     end
@@ -166,22 +173,10 @@ function Level_Abstract:setTileTypeImage(value, image)
     self.tileImages[value] = image
 end
 
-function Level_Abstract:update()
+function Level_Abstract:update(dt)
 
-    local player = self:getCurrentPlayer()
-    player:resetCollisionState()
+    self.collider:update(dt)
 
-    for y = 1, self.mapHeight do
-        for x = 1, self.mapWidth do
-            if self.tiles[y][x] ~= nil then
-                self.tiles[y][x]:resetCollisionState()
-                normal = self.tiles[y][x]:collideWith(player)
-                if normal ~= nil then
-                    print(normal)
-                end
-            end
-        end
-    end
 end
 
 function Level_Abstract:draw()
@@ -224,6 +219,7 @@ end
 function Level_Abstract:addEnemy(enemy)
     assert(enemy:is_a(Character_Enemy_Default), 'Must be an instance of Character_Enemy_Default')
     table.insert(self.enemies, enemy)
+    -- self.collider:addShape(enemy)
 end
 
 function Level_Abstract:getEnemies()
@@ -234,6 +230,7 @@ function Level_Abstract:addPlayer(player)
     assert(player:is_a(Character_Player_Default), 'Must be an instance of Character_Player_Default')
 
     table.insert(self.players, player)
+    self.collider:addShape(player)
 
     -- update which player is the current player if not already set
     if self.currentPlayerIndex == nil then

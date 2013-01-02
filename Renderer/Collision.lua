@@ -28,7 +28,22 @@ function Renderer_Collision:renderRenderable_Image(collidable)
 end
 
 function Renderer_Collision:renderCharacter_Player_Default(character)
-    self:renderRenderable_Image(character)
+
+    local collisionX, collisionY = character:center()
+
+    if character:isColliding() then
+
+        love.graphics.setColor(255, 255, 0)
+        for _, normal in pairs(character:getCollisionNormals()) do
+            love.graphics.line(collisionX, collisionY, collisionX + normal.x, collisionY + normal.y)
+        end
+
+        love.graphics.setColor(255, 0, 0)
+    else
+        love.graphics.setColor(255, 255, 255)
+    end
+
+    character:draw()
 end
 
 function Renderer_Collision:renderCharacter_Enemy_Default(character)
@@ -36,7 +51,7 @@ function Renderer_Collision:renderCharacter_Enemy_Default(character)
 end
 
 function Renderer_Collision:renderScenery_Wall(scenery)
-    self:renderRenderable_Image(scenery)
+    self:renderCharacter_Player_Default(scenery)
 end
 
 return Renderer_Collision

@@ -1,74 +1,25 @@
 Collider = {} -- avoid circular dependancies
-Collidable_Circle = Collidable_Circle or require "Collidable.Circle"
-Collidable_Box = Collidable_Box or require "Collidable.Box"
+HardonCollider = HardonCollider or require "hardoncollider".HardonCollider
 
---- Collidable class implementing Visitor Pattern
 Collider = Class {
-    name = 'Collider'
+    name = 'Collider',
+    inherits = HardonCollider,
+    function(self, cell_size)
+        HardonCollider.construct(
+            self,
+            cell_size,
+            function(...) self:collisionBegin(...) end,
+            function(...) self:collisionEnd(...) end
+        )
+    end
 }
 
---- Default collision for two objects
-function Collider:default(from, to)
-    return nil
+function Collider:collisionBegin(deltaTime, shapeTo, shapeFrom, penetrationX, penetrationY)
+    shapeFrom:addCollisionNormal(Vector(penetrationX, penetrationY), shapeTo)
 end
 
---- Check for collision between two circles
--- @param from Collidable_Circle The circle to collide 'from'
--- @param to Collidable_Circle The circle to collide 'to'
--- @return nil|Vector The vector normal of collision from 'from' in the direction of 'to'
-function Collider:CircleToCircle(from, to)
-
-    -- Correct type assertion
-    assert(from:is_a(Collidable_Circle) and to:is_a(Collidable_Circle), "Both Collidable Objects must be Collidable_Circle's")
-
-    centerFrom = from:getPosition()
-    centerTo = to:getPosition()
-
-    -- Use the squared distance to avoid a sqrt calculation
-    distX = (centerTo.x - centerFrom.x)
-    distY = (centerTo.y - centerFrom.y)
-    distanceSquared = (distX * distX) + (distY * distY)
-
-    minDistance = from:getCollisionRadius() + to:getCollisionRadius()
-
-    -- ensure we square both sides of the equation, and check for difference
-    if distanceSquared < (minDistance * minDistance) then
-        -- collision
-        -- generate a normal going 'from' to 'to'
-        normal = Vector(distX, distY)
-        normal:normalize_inplace()
-        return normal
-    end
-
-    return nil
-end
-
---- Check for collision between two boxes
--- @param from Collidable_Box The box to collide 'from'
--- @param to Collidable_Box The box to collide 'to'
--- @return nil|Vector The vector normal of collision from 'from' in the direction of 'to'
-function Collider:BoxToBox(from, to)
-
-    -- Correct type assertion
-    assert(from:is_a(Collidable_Box) and to:is_a(Collidable_Box), "Both Collidable Objects must be Collidable_Box's")
-
-    centerFrom = from:getPosition()
-    centerTo = to:getPosition()
-
-    sizeFrom = from:getCollisionSize()
-    sizeTo = to:getCollisionSize()
-
-    distX = (centerTo.x - centerFrom.x)
-    distY = (centerTo.y - centerFrom.y)
-
-    -- early out for no collision possible
-    if math.abs(distX) * 2 > (sizeFrom.x + sizeTo.x) then return nil end
-    if math.abs(distY) * 2 > (sizeFrom.y + sizeTo.y) then return nil end
-
-    -- collision! :D
-    normal = Vector(distX, distY)
-    normal:normalize_inplace()
-    return normal
+function Collider:collisionEnd(deltaTime, shapeTo, shapeFrom)
+    shapeFrom:removeCollisionNormal(shapeTo)
 end
 
 return Collider

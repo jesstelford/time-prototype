@@ -1,5 +1,4 @@
 Collidable_Abstract = {} -- avoid circular dependancies
-Collider = Collider or require "Collider"
 
 --- Collidable class implementing Visitor Pattern
 Collidable_Abstract = Class {
@@ -12,56 +11,16 @@ Collidable_Abstract = Class {
     end
 }
 
-function Collidable_Abstract:collideWith(collidable)
-    -- must be of type Collidable_Abstract to collide with
-    assert(collidable:is_a(Collidable_Abstract), 'Can only collide with Collidable objects')
-
-    collider = Collider()
-
-    fromType = self.getCollidableType()
-    toType = collidable.getCollidableType()
-
-    funcName = fromType .. 'To' .. toType
-    if type(collider[funcName]) == 'function' then
-        collisionNormal = collider[funcName](collider, self, collidable)
-        if collisionNormal ~= nil then
-            self:addCollisionNormal(collisionNormal)
-            collidable:addCollisionNormal(collisionNormal * -1)
-        end
-    else
-
-        funcName = toType .. 'To' .. fromType
-
-        if type(collider[funcName]) == 'function' then
-
-            collidable.collisionNormal = collider[funcName](collider, collidable, self)
-
-            if collisionNormal ~= nil then
-                self:addCollisionNormal(collisionNormal * -1)
-                collidable:addCollisionNormal(collisionNormal)
-            end
-        else
-            self.collisionNormal = collider:default(self, collidable)
-            if collisionNormal ~= nil then
-                self:addCollisionNormal(collisionNormal)
-                collidable:addCollisionNormal(collisionNormal * -1)
-            end
-        end
-    end
-
-    return self.collisionNormal
-end
-
 function Collidable_Abstract:getPosition()
     return self.position
 end
 
-function Collidable_Abstract:getCollidableType()
-    return 'Abstract'
+function Collidable_Abstract:addCollisionNormal(normal, shape)
+    self.collisionNormals[shape] = normal
 end
 
-function Collidable_Abstract:addCollisionNormal(normal)
-    table.insert(self.collisionNormals, normal)
+function Collidable_Abstract:removeCollisionNormal(shape)
+    self.collisionNormals[shape] = nil
 end
 
 function Collidable_Abstract:getCollisionNormals()
@@ -69,11 +28,13 @@ function Collidable_Abstract:getCollisionNormals()
 end
 
 function Collidable_Abstract:isColliding()
-    return #self.collisionNormals > 0
-end
+    for key, value in pairs(self.collisionNormals) do
+        if value ~= nil then
+            return true
+        end
+    end
 
-function Collidable_Abstract:resetCollisionState()
-    self.collisionNormals = {}
+    return false
 end
 
 return Collidable_Abstract

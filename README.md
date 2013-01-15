@@ -20,3 +20,13 @@ Source code is released under the FreeBSD Licence. See LICENSE.md
 
 Lua passes variables by value, but tables by reference.
 The stdlib provides tree.clone(table) for deep copy of tables.
+
+# Influences
+
+ * [Time Manipulation Experimental Gameplay Project](http://experimentalgameplay.com/blog/2012/08/time-manipulation-in-august-september/)
+ * Braid
+ * [The Misadventures of P.B. Winterbottom](http://www.youtube.com/watch?v=81zfIVo4CRE)
+ * Prince Of Persia, Sands of Time
+ * [Super Time Force](http://vimeo.com/48563418)
+
+... But none of these deal with the paradoxes of time travel!

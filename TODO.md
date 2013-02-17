@@ -698,6 +698,105 @@ player during replay of the original recording. As soon as this happens, all
 'future' versions pop out of existence, and the player character dies. The
 level is then reset.
 
+# Features
+
+## "Magic" Mechanism to deal with paradox
+
+The player must hit a button at the time they expect the 'magic' to happen.
+
+For example;
+ 1. Character (C1) runs towards locked door
+ 1. C1 pauses briefly at locked door
+ 1. Player hits button
+ 1. Locked door opens 'magically', and is 'tagged' in time (for the level solver) 
+ 1. C1 runs through now-open door
+ 1. C1 picks up the key for the locked door
+ 1. C1 jumps back in time (now known as C2)
+ 1. C2 runs up to locked door
+ 1. Player uses key to unlock door
+ 1. Both C1 & C2 run through now-open door
+ 1. C2 runs on to end the level
+ 1. Level solver is triggered, and satified because the 'tag' of opening the
+    door actually occurred
+
+Another example;
+ 1. C1 runs toward spike pit
+ 1. C1 pauses for briefly at spike pit
+ 1. Player hits button
+ 1. A Platform 'magically' covers spike pit and is 'tagged' for solver
+ 1. C1 runs across Platform to other side
+ 1. Platform runs out of energy and collapses
+ 1. C1 pauses for a short time
+ 1. C1 runs toward meele enemy (E1)
+ 1. Player hits button
+ 1. E1 'magically' dies and is 'tagged' for solver
+ 1. C1 runs and picks up battery
+ 1. C1 jumps back in time (now known as C2)
+ 1. C2 runs toward spike pit
+ 1. Player uses battery to power Platform
+ 1. C1 & C2 run across platform
+ 1. C2 pauses briefly
+ 1. Just after C1 runs toward E1
+ 1. C2 runs toward meele enemy (E2, aka V2 of E1)
+ 1. Player hits button
+ 1. E2 magically dies and is tagged for solver
+ 1. C2 picks up weapon
+ 1. C2 jumps back in time (now known as C3)
+ 1. C3 runs toward spike pit
+ 1. C3 pauses briefly
+ 1. C3, C2, & C1 run across platform
+ 1. C3 runs up and kills melee enemy E3 (aka, V3 of E1)
+ 1. C3 runs to exit
+ 1. Level solver is triggered:
+  * Spike Pit is solved correctly due to battery
+  * If E3 is killed before E2 or E1 'magic' button pressed, then E is solved
+
+Example with time-resistant objects (special objects that can be used, dropped,
+and picked up again..;
+ 1. C1 runs toward spike pit
+ 1. 
+
+Can have 'teleport' resistant items because the teleporter used to send the
+character back in time isn't powerful enough.
+But! There is a hand-held portable teleporter which is much more powerful, but
+can only send smaller items back.
+If the resistant item is small enough, it can be sent back in time with the
+hand-held portable teleporter.
+
+All teleporters have a 'receiver' pad which must be placed at some point.
+
+The normal character teleporter receiver pad is too big for one character to
+move on his own, so (usually) stays in the same place.
+
+But the hand held receivers are smaller and portable too. So, the player can
+drop and activate them when he wants.
+
+This way, the player can choose when and where to teleport a 'resistant' item
+back in time by dropping the receiver pad, then later using the hand-held
+teleportation device to send the item back to where/when the receiver pad was
+dropped.
+
+In later levels, there will be resistant items which are too big to be
+teleported, so they will have to be picked up then dropped to be used.
+
+In some levels, the character's teleporter receiver needs to be moved. It must
+be deactivated to be moved though, and reactivated once moved.
+
+So, the character runs ahead, drops a receiver pad, then teleports back in time.
+They then send the teleporter pad through the hand-held device to where the
+receiver pad for the hand-held was dropped.
+
+When the character selects to go back in time now, they have the option of when
+to arrive: At the start, or the time/place they sent the receiver pad to.
+
+This allows the player to jump back in time part of the way, potentially
+attacking an enemy from behind to get past it, etc.
+
+## Colour coding
+
+Each past version is colour coded so the player can distinguish between versions
+incase it gets complicated.
+
 # Feature Creep
 
 ## Time machine + Transporter

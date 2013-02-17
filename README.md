@@ -30,3 +30,7 @@ The stdlib provides tree.clone(table) for deep copy of tables.
  * [Super Time Force](http://vimeo.com/48563418)
 
 ... But none of these deal with the paradoxes of time travel!
+
+ * [Ratched & Clank: A Crack In Time](http://www.youtube.com/watch?v=B5ye6jp_iwo&list=PLD6BDC11F7BBAC32D)
+  * This deals with the paradox of time by forcing the player to go in stages,
+    using limited "Recordings" of themselves, which they can then record over
